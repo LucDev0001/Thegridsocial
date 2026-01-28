@@ -83,7 +83,7 @@
       <div
         class="mt-8 font-mono text-cyan-500 text-sm tracking-[0.3em] animate-pulse text-glow"
       >
-        ESTABLISHING CONNECTION...
+        ESTABELECENDO CONEXÃO...
       </div>
     </div>
 
@@ -126,7 +126,7 @@
       >
         <!-- Messages injected via JS -->
         <div class="text-center text-cyan-800 font-mono text-xs mt-10">
-          INITIALIZING FEED STREAM...
+          INICIALIZANDO FEED...
         </div>
       </div>
 
@@ -136,7 +136,7 @@
           id="btn-load-more"
           class="w-full border border-cyan-700 text-cyan-500 hover:bg-cyan-900/50 py-2 text-xs font-bold uppercase tracking-widest transition"
         >
-          LOAD MORE DATA
+          CARREGAR MAIS
         </button>
       </div>
     </div>
@@ -164,7 +164,7 @@
             class="text-xs text-cyan-100/70 mt-1 leading-relaxed font-light hidden md:block"
             data-i18n="subtitle"
           >
-            A global neural network of human thoughts.
+            Uma rede neural global de pensamentos humanos.
           </p>
           <div
             class="mt-2 flex items-center gap-2 text-xs font-mono text-cyan-400 border border-cyan-900/50 bg-black/50 px-2 py-1 w-fit"
@@ -173,13 +173,13 @@
               class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
             ></span>
             <span id="total-msgs">0000</span>
-            <span data-i18n="msgs_label">NODES</span>
+            <span data-i18n="msgs_label">NÓS</span>
           </div>
           <div
             id="top-countries"
             class="mt-2 text-xs font-mono text-cyan-200/60 space-y-1 hidden md:block"
           >
-            Loading stats...
+            Carregando estatísticas...
           </div>
         </div>
 
@@ -190,13 +190,13 @@
           <!-- 2. Countdown -->
           <div
             class="pointer-events-auto glass-tech px-4 py-1 rounded-full border border-red-500/50 flex items-center gap-2 shadow-[0_0_10px_rgba(239,68,68,0.3)]"
-            title="Messages are wiped daily. Clan stats persist."
+            title="Mensagens são apagadas diariamente. Estatísticas de clã persistem."
           >
             <div class="w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
             <div
               class="text-red-400 font-mono text-xs tracking-widest whitespace-nowrap"
             >
-              DAILY WIPE:
+              RESET DIÁRIO:
               <span id="countdown-timer" class="text-white font-bold"
                 >00:00:00</span
               >
@@ -209,7 +209,7 @@
               type="text"
               id="search-input"
               class="w-full bg-black/60 backdrop-blur-sm border border-cyan-500/50 text-cyan-400 text-xs md:text-sm p-2 pl-8 rounded-none focus:outline-none focus:border-cyan-400 focus:bg-black/80 focus:shadow-[0_0_15px_rgba(6,182,212,0.3)] font-mono uppercase placeholder-cyan-800 transition-all"
-              placeholder="SEARCH SIGNAL..."
+              placeholder="BUSCAR SINAL..."
             />
             <span
               class="absolute left-2 top-1/2 -translate-y-1/2 text-cyan-600 group-focus-within:text-cyan-400"
@@ -230,14 +230,14 @@
             <div
               class="text-[10px] text-yellow-500 font-bold uppercase tracking-widest mb-1 flex justify-between"
             >
-              <span>★ MESSAGE OF THE DAY</span>
+              <span>★ MENSAGEM DO DIA</span>
               <span class="animate-pulse">●</span>
             </div>
             <div
               id="motd-content"
               class="text-xs text-white font-mono italic line-clamp-2"
             >
-              "Loading transmission..."
+              "Carregando transmissão..."
             </div>
           </div>
         </div>
@@ -256,7 +256,7 @@
             class="bg-cyan-600/90 hover:bg-cyan-500 text-black font-bold py-3 px-8 uppercase tracking-widest transition-all duration-300 backdrop-blur-md flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(6,182,212,0.4)] clip-path-button border border-cyan-400 rounded-full w-full md:w-auto"
           >
             <span class="text-xl">⊕</span>
-            <span data-i18n="btn_action">INITIALIZE UPLINK</span>
+            <span data-i18n="btn_action">INICIAR CONEXÃO</span>
           </button>
         </div>
 
@@ -272,7 +272,7 @@
               id="btn-audio"
               class="px-3 py-1 text-xs font-bold text-cyan-400 hover:text-white transition uppercase border border-cyan-900 hover:border-cyan-500"
             >
-              🔇 OFF
+              🔇 DESL
             </button>
             <button
               id="btn-toggle-feed"
@@ -284,62 +284,62 @@
               id="btn-profile"
               class="px-3 py-1 text-xs font-bold text-yellow-500 hover:text-white transition uppercase border border-yellow-900 hover:border-yellow-500"
             >
-              👤 PROFILE
+              👤 PERFIL
             </button>
             <button
               onclick="openLevelsModal()"
               class="px-3 py-1 text-xs font-bold text-cyan-400 hover:text-white transition uppercase border border-cyan-900 hover:border-cyan-500"
             >
-              ℹ️ SYSTEM
+              ℹ️ SISTEMA
             </button>
             <button
               onclick="openClanChat()"
               id="btn-clan-chat"
               class="hidden px-3 py-1 text-xs font-bold text-green-500 hover:text-white transition uppercase border border-green-700 hover:border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.2)]"
             >
-              💬 CLAN CHAT
+              💬 CHAT CLÃ
             </button>
             <button
               onclick="openClanLeaderboard()"
               id="btn-clans"
               class="px-3 py-1 text-xs font-bold text-red-500 hover:text-white transition uppercase border border-red-700 hover:border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]"
             >
-              ⚔️ CLANS
+              ⚔️ CLÃS
             </button>
             <button
               onclick="openHallOfFame()"
               id="btn-hall-of-fame"
               class="px-3 py-1 text-xs font-bold text-yellow-500 hover:text-white transition uppercase border border-yellow-700 hover:border-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.2)]"
             >
-              🏆 HALL OF FAME
+              🏆 HALL DA FAMA
             </button>
             <button
               onclick="toggleAutoPilot()"
               id="btn-autopilot"
               class="px-3 py-1 text-xs font-bold text-cyan-400 hover:text-white transition uppercase border border-cyan-900 hover:border-cyan-500"
             >
-              AUTO PILOT
+              PILOTO AUTO
             </button>
             <button
               onclick="toggleHistoryMode()"
               id="btn-history"
               class="px-3 py-1 text-xs font-bold text-cyan-400 hover:text-white transition uppercase border border-cyan-900 hover:border-cyan-500"
             >
-              HISTORY
+              HISTÓRICO
             </button>
             <button
               onclick="switchFilter('timestamp')"
               id="filter-latest"
               class="px-3 py-1 text-xs font-bold bg-cyan-600 text-black rounded hover:bg-cyan-500 transition uppercase"
             >
-              LATEST
+              RECENTES
             </button>
             <button
               onclick="switchFilter('likes')"
               id="filter-top"
               class="px-3 py-1 text-xs font-bold text-cyan-400 hover:text-white transition uppercase"
             >
-              TOP RATED
+              TOP LIKES
             </button>
           </div>
         </div>
@@ -357,13 +357,13 @@
         <div
           class="flex justify-between items-center text-cyan-400 font-mono text-xs uppercase tracking-widest"
         >
-          <span>TIMELINE MODE</span>
-          <span id="history-date">LOADING DATA...</span>
+          <span>MODO LINHA DO TEMPO</span>
+          <span id="history-date">CARREGANDO DADOS...</span>
           <button
             onclick="toggleHistoryMode()"
             class="text-red-500 hover:text-red-400"
           >
-            [ EXIT ]
+            [ SAIR ]
           </button>
         </div>
 
@@ -381,7 +381,7 @@
             onclick="navHistory(-1)"
             class="px-4 py-2 bg-black/50 border border-cyan-900 text-cyan-400 hover:bg-cyan-900/50 rounded uppercase text-xs font-bold"
           >
-            PREV
+            ANT
           </button>
           <button
             onclick="togglePlayHistory()"
@@ -394,11 +394,11 @@
             onclick="navHistory(1)"
             class="px-4 py-2 bg-black/50 border border-cyan-900 text-cyan-400 hover:bg-cyan-900/50 rounded uppercase text-xs font-bold"
           >
-            NEXT
+            PROX
           </button>
         </div>
         <div class="text-center text-xs text-gray-500 font-mono mt-1">
-          <span id="history-counter">0 / 0</span> NODES
+          <span id="history-counter">0 / 0</span> NÓS
         </div>
       </div>
     </div>
@@ -426,7 +426,7 @@
           <h2
             class="text-3xl font-bold text-yellow-500 uppercase tracking-widest text-glow"
           >
-            OPERATOR PROFILE
+            PERFIL DE OPERADOR
           </h2>
         </div>
 
@@ -444,12 +444,12 @@
                 id="profile-email-display"
                 class="text-gray-400 font-mono text-sm"
               >
-                loading...
+                carregando...
               </div>
               <div
                 class="text-xs text-yellow-600 mt-1 uppercase tracking-widest"
               >
-                Verified Node
+                Nó Verificado
               </div>
             </div>
             <div class="flex justify-around text-center mt-4 w-full gap-4">
@@ -460,7 +460,7 @@
                 >
                   0
                 </div>
-                <div class="text-xs text-gray-400 uppercase">Followers</div>
+                <div class="text-xs text-gray-400 uppercase">Seguidores</div>
               </div>
               <div>
                 <div
@@ -469,7 +469,7 @@
                 >
                   0
                 </div>
-                <div class="text-xs text-gray-400 uppercase">Following</div>
+                <div class="text-xs text-gray-400 uppercase">Seguindo</div>
               </div>
             </div>
           </div>
@@ -479,20 +479,20 @@
             <div>
               <label
                 class="block text-xs font-bold text-gray-500 uppercase mb-1"
-                >Display Name / Codename</label
+                >Nome de Exibição / Codinome</label
               >
               <input
                 type="text"
                 id="profile-name"
                 class="auth-input bg-black/50"
-                placeholder="Enter codename..."
+                placeholder="Digite codinome..."
               />
             </div>
 
             <div>
               <label
                 class="block text-xs font-bold text-gray-500 uppercase mb-1"
-                >System ID</label
+                >ID do Sistema</label
               >
               <div
                 id="profile-uid"
@@ -506,7 +506,7 @@
               id="btn-save-profile"
               class="w-full bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-3 uppercase tracking-widest transition shadow-[0_0_15px_rgba(234,179,8,0.3)]"
             >
-              UPDATE DATA
+              ATUALIZAR DADOS
             </button>
           </div>
         </div>
@@ -514,20 +514,20 @@
         <!-- Danger Zone -->
         <div class="mt-12 pt-6 border-t border-red-900/30">
           <h3 class="text-red-500 font-bold uppercase text-sm mb-4">
-            DANGER ZONE
+            ZONA DE PERIGO
           </h3>
           <div class="flex flex-col md:flex-row gap-4">
             <button
               id="btn-logout"
               class="flex-1 border border-gray-600 text-gray-400 hover:text-white hover:border-white py-3 uppercase text-xs font-bold transition"
             >
-              DISCONNECT SESSION
+              DESCONECTAR SESSÃO
             </button>
             <button
               id="btn-delete-account"
               class="flex-1 border border-red-900 text-red-800 hover:bg-red-900 hover:text-white py-3 uppercase text-xs font-bold transition"
             >
-              DELETE ACCOUNT PERMANENTLY
+              EXCLUIR CONTA PERMANENTEMENTE
             </button>
           </div>
         </div>
@@ -559,7 +559,7 @@
             id="public-profile-name"
             class="text-2xl font-bold text-white uppercase tracking-widest text-glow"
           >
-            Operator
+            Operador
           </h2>
 
           <div class="flex gap-6 my-4 font-mono text-center">
@@ -570,7 +570,7 @@
               >
                 0
               </div>
-              <div class="text-xs text-gray-400 uppercase">Followers</div>
+              <div class="text-xs text-gray-400 uppercase">Seguidores</div>
             </div>
             <div>
               <div
@@ -579,7 +579,7 @@
               >
                 0
               </div>
-              <div class="text-xs text-gray-400 uppercase">Following</div>
+              <div class="text-xs text-gray-400 uppercase">Seguindo</div>
             </div>
           </div>
 
@@ -588,7 +588,7 @@
               id="btn-public-follow"
               class="w-full bg-cyan-900/50 border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black py-2 font-bold uppercase text-xs transition"
             >
-              FOLLOW
+              SEGUIR
             </button>
           </div>
         </div>
@@ -612,7 +612,7 @@
         <h2
           class="text-3xl font-bold text-cyan-500 uppercase tracking-widest text-center mb-6 text-glow"
         >
-          /// SYSTEM LEVELS
+          /// NÍVEIS DO SISTEMA
         </h2>
 
         <div class="space-y-6 font-mono text-sm">
@@ -624,12 +624,10 @@
               class="w-4 h-4 rounded-full bg-cyan-500 shadow-[0_0_10px_#06b6d4]"
             ></div>
             <div>
-              <div class="text-cyan-400 font-bold uppercase">
-                SIGNAL: ACTIVE
-              </div>
+              <div class="text-cyan-400 font-bold uppercase">SINAL: ATIVO</div>
               <div class="text-gray-400 text-xs">0 - 9 Likes</div>
               <div class="text-gray-500 text-xs mt-1">
-                Standard visibility on the grid.
+                Visibilidade padrão na grade.
               </div>
             </div>
           </div>
@@ -643,11 +641,11 @@
             ></div>
             <div>
               <div class="text-purple-400 font-bold uppercase">
-                SIGNAL: VETERAN
+                SINAL: VETERANO
               </div>
               <div class="text-gray-400 text-xs">10 - 49 Likes</div>
               <div class="text-gray-500 text-xs mt-1">
-                Enhanced marker size. [VETERAN] tag.
+                Marcador melhorado. Tag [VETERANO].
               </div>
             </div>
           </div>
@@ -661,26 +659,28 @@
             ></div>
             <div>
               <div class="text-yellow-500 font-bold uppercase">
-                SIGNAL: LEGEND
+                SINAL: LENDA
               </div>
               <div class="text-gray-400 text-xs">50+ Likes</div>
               <div class="text-gray-500 text-xs mt-1">
-                Maximum visibility. [LEGEND] tag. Unlocks rewards.
+                Visibilidade máxima. Tag [LENDA]. Recompensas.
               </div>
             </div>
           </div>
 
           <!-- Clans -->
           <div class="p-4 border-t border-cyan-900/50 mt-4">
-            <h3 class="text-white font-bold uppercase mb-2">CLAN PROTOCOLS</h3>
+            <h3 class="text-white font-bold uppercase mb-2">
+              PROTOCOLOS DE CLÃ
+            </h3>
             <p class="text-gray-400 text-xs mb-2">
-              Add a tag like <span class="text-white">[CYBER]</span> to your
-              name to join a clan.
+              Adicione uma tag como <span class="text-white">[CYBER]</span> ao
+              seu nome para entrar em um clã.
             </p>
             <ul class="list-disc list-inside text-gray-500 text-xs space-y-1">
-              <li>Clan score = Total likes of all members.</li>
-              <li>Access to encrypted Clan Chat.</li>
-              <li>Dominate the leaderboard.</li>
+              <li>Pontuação do clã = Total de likes dos membros.</li>
+              <li>Acesso ao Chat de Clã criptografado.</li>
+              <li>Domine o ranking.</li>
             </ul>
           </div>
         </div>
@@ -699,7 +699,7 @@
           class="p-4 border-b border-cyan-900 bg-black/60 flex justify-between items-center"
         >
           <h3 class="text-cyan-400 font-bold uppercase tracking-widest">
-            /// DATA THREAD
+            /// THREAD DE DADOS
           </h3>
           <button id="btn-close-thread" class="text-cyan-600 hover:text-white">
             [X]
@@ -728,13 +728,13 @@
             type="text"
             id="reply-input"
             class="flex-1 bg-black border border-cyan-800 text-cyan-100 p-2 text-sm outline-none focus:border-cyan-500"
-            placeholder="Reply to signal..."
+            placeholder="Responder ao sinal..."
           />
           <button
             id="btn-send-reply"
             class="bg-cyan-700 text-white px-4 font-bold text-xs uppercase hover:bg-cyan-500"
           >
-            SEND
+            ENVIAR
           </button>
         </div>
       </div>
@@ -759,13 +759,13 @@
           class="text-3xl font-bold mb-1 text-white uppercase tracking-wider text-glow"
           data-i18n="modal_title"
         >
-          TRANSMISSION
+          TRANSMISSÃO
         </h2>
         <p
           class="text-sm text-cyan-200/60 mb-8 font-mono"
           data-i18n="modal_desc"
         >
-          Establishing secure connection to current coordinates.
+          Estabelecendo conexão segura com coordenadas atuais.
         </p>
 
         <div class="space-y-6">
@@ -773,13 +773,13 @@
             <label
               class="block text-xs font-bold text-cyan-500 uppercase tracking-widest mb-2"
               data-i18n="label_name"
-              >CODENAME / ID</label
+              >CODINOME / ID</label
             >
             <input
               type="text"
               id="input-name"
               class="w-full p-3 bg-black/50 border border-cyan-900 text-cyan-100 focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.3)] outline-none transition font-mono"
-              placeholder="Identity..."
+              placeholder="Identidade..."
               data-i18n-placeholder="ph_name"
             />
           </div>
@@ -788,14 +788,14 @@
             <label
               class="block text-xs font-bold text-cyan-500 uppercase tracking-widest mb-2"
               data-i18n="label_msg"
-              >DATA PACKET</label
+              >PACOTE DE DADOS</label
             >
             <textarea
               id="input-msg"
               rows="3"
               maxlength="140"
               class="w-full p-3 bg-black/50 border border-cyan-900 text-cyan-100 focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(6,182,212,0.3)] outline-none transition resize-none font-mono"
-              placeholder="Input data stream..."
+              placeholder="Inserir fluxo de dados..."
               data-i18n-placeholder="ph_msg"
             ></textarea>
             <div class="text-right text-xs text-cyan-700 mt-1 font-mono">
@@ -807,7 +807,7 @@
             id="btn-submit"
             class="w-full bg-cyan-600 hover:bg-cyan-500 text-black font-bold py-4 uppercase tracking-widest transition shadow-[0_0_15px_rgba(6,182,212,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2 clip-path-button"
           >
-            <span data-i18n="btn_submit">UPLOAD TO GRID</span> 📡
+            <span data-i18n="btn_submit">ENVIAR PARA A GRADE</span> 📡
           </button>
         </div>
       </div>
@@ -830,13 +830,13 @@
           class="text-2xl font-bold text-white mb-2 uppercase tracking-widest"
           data-i18n="success_title"
         >
-          UPLOAD COMPLETE
+          ENVIO COMPLETO
         </h2>
         <p
           class="text-cyan-200/60 mb-8 text-sm font-mono"
           data-i18n="success_desc"
         >
-          Your data node has been synchronized globally.
+          Seu nó de dados foi sincronizado globalmente.
         </p>
 
         <!-- Sponsor / Reward Banner -->
@@ -846,12 +846,12 @@
         >
           <div id="reward-locked" class="text-xs">
             <div class="text-gray-400 uppercase tracking-widest mb-1">
-              LOCKED REWARD
+              RECOMPENSA BLOQUEADA
             </div>
             <div class="text-cyan-600 font-mono">
-              Reach
-              <span class="text-yellow-500 font-bold">LEGEND LEVEL</span> (50
-              Likes) to unlock exclusive partner coupons.
+              Alcance
+              <span class="text-yellow-500 font-bold">NÍVEL LENDA</span> (50
+              Likes) para desbloquear cupons.
             </div>
             <div
               class="w-full h-1 bg-gray-800 mt-2 rounded-full overflow-hidden"
@@ -864,17 +864,17 @@
             <div
               class="text-yellow-500 font-bold uppercase tracking-widest mb-1 text-glow"
             >
-              ★ LEGEND REWARD UNLOCKED ★
+              ★ RECOMPENSA LENDA DESBLOQUEADA ★
             </div>
             <div class="text-white font-mono text-sm mb-1">
-              Use code:
+              Use o código:
               <span
                 class="bg-yellow-500 text-black px-2 py-0.5 font-bold select-all"
                 >CYBER50</span
               >
             </div>
             <div class="text-[10px] text-gray-400">
-              50% OFF at CyberWear Store
+              50% OFF na Loja CyberWear
             </div>
           </div>
         </div>
@@ -884,25 +884,25 @@
             onclick="share('whatsapp')"
             class="w-full border border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-black py-3 px-4 font-bold transition flex items-center justify-center gap-2 uppercase"
           >
-            WhatsApp Protocol
+            Protocolo WhatsApp
           </button>
           <button
             onclick="share('twitter')"
             class="w-full border border-white text-white hover:bg-white hover:text-black py-3 px-4 font-bold transition flex items-center justify-center gap-2 uppercase"
           >
-            X / Twitter Feed
+            Feed X / Twitter
           </button>
           <button
             onclick="copyLink()"
             class="w-full border border-gray-600 text-gray-400 hover:border-cyan-400 hover:text-cyan-400 py-3 px-4 font-bold transition uppercase"
           >
-            Copy Frequency Link
+            Copiar Link de Frequência
           </button>
           <button
             onclick="downloadCard()"
             class="w-full border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black py-3 px-4 font-bold transition uppercase"
           >
-            Download Data Card 📸
+            Baixar Cartão de Dados 📸
           </button>
         </div>
 
@@ -911,7 +911,7 @@
           class="mt-8 text-xs text-cyan-800 hover:text-cyan-500 uppercase tracking-widest"
           data-i18n="btn_close"
         >
-          [ Close Terminal ]
+          [ Fechar Terminal ]
         </button>
       </div>
     </div>
@@ -933,56 +933,56 @@
         <h1
           class="text-4xl font-bold text-white uppercase tracking-widest text-glow mb-6 text-center"
         >
-          <span class="text-cyan-400">///</span> SYSTEM INITIALIZED
+          <span class="text-cyan-400">///</span> SISTEMA INICIALIZADO
         </h1>
 
         <div class="space-y-6 text-cyan-100/80 font-mono">
           <p class="text-lg leading-relaxed text-center">
-            Welcome to
+            Bem-vindo ao
             <strong class="text-white">The Grid Social</strong>.<br />
-            You have connected to a global neural network of human thoughts.
+            Você se conectou à rede neural global de pensamentos humanos.
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-black/40 p-4 border border-cyan-900/50">
               <h3 class="text-cyan-400 font-bold uppercase mb-2 text-sm">
-                /// DIRECTIVES
+                /// DIRETRIZES
               </h3>
               <ul class="list-disc list-inside space-y-2 text-sm">
-                <li>Leave your mark on the global grid.</li>
-                <li>Connect with nodes from around the world.</li>
+                <li>Deixe sua marca na grade global.</li>
+                <li>Conecte-se com nós ao redor do mundo.</li>
                 <li>
-                  Join a Clan by adding
-                  <span class="text-red-400">[TAG]</span> to your name.
+                  Entre em um Clã adicionando
+                  <span class="text-red-400">[TAG]</span> ao seu nome.
                 </li>
                 <li>
-                  Access exclusive <strong>Clan Chat</strong> when you have a
-                  tag.
+                  Acesse o <strong>Chat de Clã</strong> exclusivo quando tiver
+                  uma tag.
                 </li>
-                <li>Gain reputation (Likes) to upgrade your signal level.</li>
+                <li>Ganhe reputação (Likes) para subir de nível.</li>
               </ul>
             </div>
 
             <div class="bg-black/40 p-4 border border-cyan-900/50">
               <h3 class="text-cyan-400 font-bold uppercase mb-2 text-sm">
-                /// PROTOCOLS
+                /// PROTOCOLOS
               </h3>
               <div class="flex flex-wrap gap-2 text-xl" id="welcome-flags">
                 <!-- Flags injected via JS -->
               </div>
               <div class="mt-2 text-xs text-cyan-500">
-                Auto-translation active. Daily message wipe (Clan stats
-                persist).
+                Tradução automática ativa. Reset diário de mensagens
+                (Estatísticas de clã persistem).
               </div>
             </div>
           </div>
 
           <div class="text-center pt-4">
             <p class="text-xs uppercase tracking-widest text-cyan-600 mb-2">
-              CURRENT NETWORK STATUS
+              STATUS DA REDE
             </p>
             <div class="text-3xl font-bold text-white text-glow">
-              <span id="welcome-total-msgs">CONNECTING...</span> NODES ACTIVE
+              <span id="welcome-total-msgs">CONECTANDO...</span> NÓS ATIVOS
             </div>
           </div>
         </div>
@@ -991,7 +991,7 @@
           id="btn-enter-site"
           class="w-full mt-8 bg-cyan-600 hover:bg-cyan-500 text-black font-bold py-4 uppercase tracking-widest transition shadow-[0_0_20px_rgba(6,182,212,0.4)]"
         >
-          ENTER THE GRID
+          ENTRAR NA GRADE
         </button>
       </div>
     </div>
@@ -1013,10 +1013,10 @@
         <h2
           class="text-3xl font-bold text-yellow-500 uppercase tracking-widest text-center mb-2 text-glow"
         >
-          🏆 HALL OF FAME 🏆
+          🏆 HALL DA FAMA 🏆
         </h2>
         <p class="text-center text-yellow-200/60 font-mono text-xs mb-6">
-          THE MOST LEGENDARY SIGNALS IN THE GRID
+          OS SINAIS MAIS LENDÁRIOS DA GRADE
         </p>
         <div id="hall-of-fame-list" class="space-y-3">
           <!-- Items injected via JS -->
@@ -1041,10 +1041,10 @@
         <h2
           class="text-3xl font-bold text-red-500 uppercase tracking-widest text-center mb-2 text-glow"
         >
-          ⚔️ CLAN WARS ⚔️
+          ⚔️ GUERRA DE CLÃS ⚔️
         </h2>
         <p class="text-center text-red-200/60 font-mono text-xs mb-6">
-          DOMINANT FACTIONS IN THE NETWORK
+          FACÇÕES DOMINANTES NA REDE
         </p>
         <div id="clan-list" class="space-y-3">
           <!-- Items injected via JS -->
@@ -1059,18 +1059,18 @@
           class="mt-6 p-4 bg-black/40 border border-cyan-900/50 rounded text-center"
         >
           <h3 class="text-cyan-400 font-bold uppercase text-sm mb-2">
-            JOIN THE CLAN WARS
+            ENTRE NA GUERRA DE CLÃS
           </h3>
           <p class="text-cyan-200/70 text-xs font-mono mb-4">
-            To join or create a clan, add a tag like
-            <span class="text-white font-bold">[CYBER]</span> to your Display
-            Name in your profile.
+            Para entrar ou criar um clã, adicione uma tag como
+            <span class="text-white font-bold">[CYBER]</span> ao seu Nome de
+            Exibição no perfil.
           </p>
           <button
             onclick="window.location.href = 'src/view/profile.html'"
             class="w-full bg-cyan-600 hover:bg-cyan-500 text-black font-bold py-2 uppercase tracking-widest transition text-xs"
           >
-            GO TO PROFILE
+            IR PARA PERFIL
           </button>
         </div>
       </div>
@@ -1094,10 +1094,10 @@
           <h2
             class="text-xl font-bold text-green-500 uppercase tracking-widest text-glow"
           >
-            /// CLAN COMMS
+            /// COMUNICAÇÃO DE CLÃ
           </h2>
           <div class="text-xs text-green-800 font-mono" id="clan-chat-tag">
-            ENCRYPTED CHANNEL
+            CANAL CRIPTOGRAFADO
           </div>
         </div>
         <div
@@ -1111,13 +1111,13 @@
             type="text"
             id="clan-chat-input"
             class="flex-1 bg-black/50 border border-green-900 text-green-400 text-xs p-2 focus:border-green-500 outline-none"
-            placeholder="TRANSMIT..."
+            placeholder="TRANSMITIR..."
           />
           <button
             onclick="sendClanMessage()"
             class="bg-green-900/30 text-green-500 border border-green-700 hover:bg-green-500 hover:text-black px-3 font-bold text-xs uppercase"
           >
-            SEND
+            ENVIAR
           </button>
         </div>
       </div>
@@ -1150,7 +1150,7 @@
             <span class="text-cyan-400">///</span> THE GRID SOCIAL
           </h1>
           <div class="text-cyan-400 font-mono text-sm">
-            SECURE TRANSMISSION // <span id="card-date"></span>
+            TRANSMISSÃO SEGURA // <span id="card-date"></span>
           </div>
         </div>
 
@@ -1161,13 +1161,13 @@
             class="text-cyan-300 font-bold text-xl mb-2 uppercase glitch-static"
             id="card-name"
           >
-            CODENAME
+            CODINOME
           </div>
           <div
             class="text-white text-2xl font-light leading-relaxed glitch-static"
             id="card-text"
           >
-            "Message content goes here..."
+            "Conteúdo da mensagem aqui..."
           </div>
         </div>
 
@@ -1193,23 +1193,23 @@
         class="glass-tech w-full max-w-sm p-6 border-t-4 border-red-500 relative"
       >
         <h3 class="text-xl font-bold text-white uppercase mb-4 text-glow">
-          CONFIRM ACTION
+          CONFIRMAR AÇÃO
         </h3>
         <p id="confirm-msg" class="text-gray-300 font-mono text-sm mb-6">
-          Are you sure?
+          Tem certeza?
         </p>
         <div class="flex gap-3 justify-end">
           <button
             id="btn-confirm-cancel"
             class="px-4 py-2 border border-gray-600 text-gray-400 hover:text-white text-xs font-bold uppercase transition"
           >
-            CANCEL
+            CANCELAR
           </button>
           <button
             id="btn-confirm-ok"
             class="px-4 py-2 bg-red-600 text-white hover:bg-red-500 text-xs font-bold uppercase shadow-[0_0_10px_rgba(220,38,38,0.4)] transition"
           >
-            PROCEED
+            PROSSEGUIR
           </button>
         </div>
       </div>

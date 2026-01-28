@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Grid - Operator Profile</title>
+    <title>The Grid - Perfil de Operador</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&display=swap"
@@ -36,13 +36,13 @@
         <h1
           class="text-3xl md:text-4xl font-bold text-yellow-500 uppercase tracking-widest text-glow"
         >
-          OPERATOR PROFILE
+          PERFIL DE OPERADOR
         </h1>
         <a
           href="/"
           class="text-cyan-500 hover:text-white uppercase text-sm font-bold border border-cyan-700 px-4 py-2 hover:bg-cyan-900/50 transition"
         >
-          &larr; RETURN TO GRID
+          &larr; RETORNAR À GRADE
         </a>
       </div>
 
@@ -60,10 +60,10 @@
               id="profile-email-display"
               class="text-gray-400 font-mono text-sm"
             >
-              loading...
+              carregando...
             </div>
             <div class="text-xs text-yellow-600 mt-1 uppercase tracking-widest">
-              Verified Node
+              Nó Verificado
             </div>
           </div>
         </div>
@@ -72,19 +72,19 @@
         <div class="space-y-6">
           <div>
             <label class="block text-xs font-bold text-gray-500 uppercase mb-1"
-              >Display Name / Codename</label
+              >Nome de Exibição / Codinome</label
             >
             <input
               type="text"
               id="profile-name"
               class="auth-input bg-black/50"
-              placeholder="Enter codename..."
+              placeholder="Digite codinome..."
             />
           </div>
 
           <div>
             <label class="block text-xs font-bold text-gray-500 uppercase mb-1"
-              >System ID</label
+              >ID do Sistema</label
             >
             <div
               id="profile-uid"
@@ -98,7 +98,7 @@
             id="btn-save-profile"
             class="w-full bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-3 uppercase tracking-widest transition shadow-[0_0_15px_rgba(234,179,8,0.3)]"
           >
-            UPDATE DATA
+            ATUALIZAR DADOS
           </button>
         </div>
       </div>
@@ -106,20 +106,20 @@
       <!-- Danger Zone -->
       <div class="mt-12 pt-6 border-t border-red-900/30">
         <h3 class="text-red-500 font-bold uppercase text-sm mb-4">
-          DANGER ZONE
+          ZONA DE PERIGO
         </h3>
         <div class="flex flex-col md:flex-row gap-4">
           <button
             id="btn-logout"
             class="flex-1 border border-gray-600 text-gray-400 hover:text-white hover:border-white py-3 uppercase text-xs font-bold transition"
           >
-            DISCONNECT SESSION
+            DESCONECTAR SESSÃO
           </button>
           <button
             id="btn-delete-account"
             class="flex-1 border border-red-900 text-red-800 hover:bg-red-900 hover:text-white py-3 uppercase text-xs font-bold transition"
           >
-            DELETE ACCOUNT PERMANENTLY
+            EXCLUIR CONTA PERMANENTEMENTE
           </button>
         </div>
       </div>

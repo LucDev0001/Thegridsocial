@@ -73,7 +73,7 @@ const eggMarker = L.circleMarker([25.0, -71.0], {
 
 eggMarker.on("click", () => {
   showToast(
-    "⚠️ SYSTEM ANOMALY DETECTED ⚠️\n\nCOORDINATES: 25.0, -71.0\nENCRYPTED SIGNAL FOUND.\n\nACCESS CODE REQUIRED IN SEARCH BAR: 'THE_ARCHITECT'",
+    "⚠️ ANOMALIA DE SISTEMA DETECTADA ⚠️\n\nCOORDENADAS: 25.0, -71.0\nSINAL CRIPTOGRAFADO ENCONTRADO.\n\nCÓDIGO DE ACESSO NECESSÁRIO NA BUSCA: 'THE_ARCHITECT'",
   );
 });
 
@@ -130,12 +130,12 @@ function loadMessages(sortBy = "timestamp") {
             markerClass = "marker-pin-gold"; // Level 3 (Gold)
             lineColor = "#eab308";
             rankTitle =
-              "<span style='color:#eab308; font-size:10px; border:1px solid #eab308; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ LEGEND ]</span>";
+              "<span style='color:#eab308; font-size:10px; border:1px solid #eab308; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ LENDA ]</span>";
           } else if (likeCount >= 10) {
             markerClass = "marker-pin-purple"; // Level 2 (Purple)
             lineColor = "#a855f7";
             rankTitle =
-              "<span style='color:#a855f7; font-size:10px; border:1px solid #a855f7; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ VETERAN ]</span>";
+              "<span style='color:#a855f7; font-size:10px; border:1px solid #a855f7; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ VETERANO ]</span>";
           }
           // ----------------------------------
 
@@ -235,7 +235,7 @@ function loadMessages(sortBy = "timestamp") {
                           ${nameHtml}${rankTitle}
                           <p style="margin: 6px 0; font-size: 14px; color: #e0f2fe;">"${safeText}"</p>
                           <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
-                              <button onclick="openThread('${change.doc.id}')" style="font-size: 10px; color: #06b6d4; background:none; border:1px solid #06b6d4; padding: 2px 6px; cursor:pointer;">REPLY (${replyCount})</button>
+                              <button onclick="openThread('${change.doc.id}')" style="font-size: 10px; color: #06b6d4; background:none; border:1px solid #06b6d4; padding: 2px 6px; cursor:pointer;">RESPONDER (${replyCount})</button>
                               <div style="display: flex; align-items: center; gap: 5px;">
                                   <button onclick="handleReaction('${change.doc.id}', 'like')" style="background: none; border: none; cursor: pointer; color: ${likeColor}; font-size: 14px; padding: 0 2px;">👍 <span id="likes-${change.doc.id}">${likeCount}</span></button>
                                   <button onclick="handleReaction('${change.doc.id}', 'dislike')" style="background: none; border: none; cursor: pointer; color: ${dislikeColor}; font-size: 14px; padding: 0 2px;">👎 <span id="dislikes-${change.doc.id}">${dislikeCount}</span></button>
@@ -350,12 +350,12 @@ function renderFakeMarkers() {
       markerClass = "marker-pin-gold";
       lineColor = "#eab308";
       rankTitle =
-        "<span style='color:#eab308; font-size:10px; border:1px solid #eab308; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ LEGEND ]</span>";
+        "<span style='color:#eab308; font-size:10px; border:1px solid #eab308; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ LENDA ]</span>";
     } else if (likes >= 10) {
       markerClass = "marker-pin-purple";
       lineColor = "#a855f7";
       rankTitle =
-        "<span style='color:#a855f7; font-size:10px; border:1px solid #a855f7; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ VETERAN ]</span>";
+        "<span style='color:#a855f7; font-size:10px; border:1px solid #a855f7; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ VETERANO ]</span>";
     }
 
     if (specialTitle === "HACKER") {
@@ -465,7 +465,7 @@ function updateCountryStats(snapshot) {
     })
     .join("");
 
-  document.getElementById("top-countries").innerHTML = html || "Calculating...";
+  document.getElementById("top-countries").innerHTML = html || "Calculando...";
 }
 
 // --- CLAN STATS ---
@@ -561,7 +561,7 @@ onAuthStateChanged(auth, (user) => {
     }
 
     // Update UI for logged in
-    btnOpen.innerHTML = '<span class="text-xl">⊕</span> POST SIGNAL';
+    btnOpen.innerHTML = '<span class="text-xl">⊕</span> POSTAR SINAL';
 
     // Create user profile in 'users' collection if it doesn't exist
     const userRef = doc(db, "users", user.uid);
@@ -600,7 +600,7 @@ onAuthStateChanged(auth, (user) => {
         if (data.name) localStorage.setItem("wmt_name", data.name);
         checkClanButton();
 
-        btnOpen.innerHTML = '<span class="text-xl">↻</span> UPDATE SIGNAL';
+        btnOpen.innerHTML = '<span class="text-xl">↻</span> ATUALIZAR SINAL';
 
         const inputName = document.getElementById("input-name");
         const inputMsg = document.getElementById("input-msg");
@@ -612,7 +612,7 @@ onAuthStateChanged(auth, (user) => {
         }
       } else {
         localStorage.removeItem("wmt_msg_id");
-        btnOpen.innerHTML = '<span class="text-xl">⊕</span> POST SIGNAL';
+        btnOpen.innerHTML = '<span class="text-xl">⊕</span> POSTAR SINAL';
       }
     });
 
@@ -632,10 +632,10 @@ onAuthStateChanged(auth, (user) => {
           // Only show if recent (within last minute) to avoid spam on reload
           const now = Date.now() / 1000;
           if (data.timestamp && now - data.timestamp.seconds < 60) {
-            showToast(`💬 NEW REPLY FROM: ${data.from}`, "success");
+            showToast(`💬 NOVA RESPOSTA DE: ${data.from}`, "success");
           }
         } else if (change.type === "added" && data.type === "follow") {
-          showToast(`👤 ${data.from} is now following you!`, "info");
+          showToast(`👤 ${data.from} agora está te seguindo!`, "info");
         }
       });
     });
@@ -657,7 +657,7 @@ document.getElementById("btn-profile").onclick = () => {
     const nameInput = document.getElementById("profile-name");
 
     if (emailDisplay)
-      emailDisplay.innerText = currentUser.email || "Anonymous Guest";
+      emailDisplay.innerText = currentUser.email || "Visitante Anônimo";
     if (uidDisplay) uidDisplay.innerText = currentUser.uid;
     if (nameInput) nameInput.value = currentUser.displayName || "";
   }
@@ -671,12 +671,12 @@ document.getElementById("btn-save-profile").onclick = async () => {
   const newName = document.getElementById("profile-name").value;
   if (currentUser && newName) {
     await updateProfile(currentUser, { displayName: newName });
-    showToast("Profile Updated", "success");
+    showToast("Perfil Atualizado", "success");
   }
 };
 
 document.getElementById("btn-delete-account").onclick = async () => {
-  showConfirm("Are you sure? This cannot be undone.", async () => {
+  showConfirm("Tem certeza? Isso não pode ser desfeito.", async () => {
     if (currentUser) await currentUser.delete();
     location.reload();
   });
@@ -692,7 +692,7 @@ window.openPublicProfile = async (targetUid, targetName) => {
   const followingEl = document.getElementById("public-profile-following");
   const followBtn = document.getElementById("btn-public-follow");
 
-  nameEl.innerText = "Loading...";
+  nameEl.innerText = "Carregando...";
   followersEl.innerText = "-";
   followingEl.innerText = "-";
   modal.classList.remove("hidden");
@@ -702,7 +702,7 @@ window.openPublicProfile = async (targetUid, targetName) => {
 
   if (targetUserSnap.exists()) {
     const targetData = targetUserSnap.data();
-    nameEl.innerText = targetData.displayName || "Anonymous";
+    nameEl.innerText = targetData.displayName || "Anônimo";
     followersEl.innerText = targetData.followerCount || 0;
     followingEl.innerText = targetData.followingCount || 0;
   }
@@ -711,7 +711,7 @@ window.openPublicProfile = async (targetUid, targetName) => {
     const isFollowing = (currentUserSnap.data().following || []).includes(
       targetUid,
     );
-    followBtn.innerText = isFollowing ? "UNFOLLOW" : "FOLLOW";
+    followBtn.innerText = isFollowing ? "DEIXAR DE SEGUIR" : "SEGUIR";
     followBtn.className = isFollowing
       ? "w-full bg-red-900/50 border border-red-500 text-red-400 hover:bg-red-500 hover:text-black py-2 font-bold uppercase text-xs transition"
       : "w-full bg-cyan-900/50 border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black py-2 font-bold uppercase text-xs transition";
@@ -877,7 +877,7 @@ async function loadFeed(isMore = false) {
         feedContent.appendChild(createFeedItem(doc));
       });
     } else {
-      showToast("No more signals.", "info");
+      showToast("Sem mais sinais.", "info");
     }
   }
 }
@@ -920,9 +920,9 @@ window.openThread = async (msgId) => {
 
   modal.classList.remove("hidden");
   originalDiv.innerHTML =
-    '<div class="animate-pulse text-cyan-500">LOADING SOURCE...</div>';
+    '<div class="animate-pulse text-cyan-500">CARREGANDO FONTE...</div>';
   repliesDiv.innerHTML =
-    '<div class="animate-pulse text-gray-500">SCANNING REPLIES...</div>';
+    '<div class="animate-pulse text-gray-500">ESCANEANDO RESPOSTAS...</div>';
 
   // Load Original
   const msgDoc = await getDoc(doc(db, "world_messages", msgId));
@@ -960,13 +960,13 @@ document.getElementById("btn-close-thread").onclick = () =>
 
 document.getElementById("btn-send-reply").onclick = async () => {
   if (!currentUser) {
-    showToast("LOGIN REQUIRED", "error");
+    showToast("LOGIN NECESSÁRIO", "error");
     return;
   }
   const text = document.getElementById("reply-input").value.trim();
   if (!text || !currentThreadId) return;
 
-  const name = currentUser.displayName || "Anonymous";
+  const name = currentUser.displayName || "Anônimo";
 
   // Add reply
   await addDoc(collection(db, "world_messages", currentThreadId, "replies"), {
@@ -1089,7 +1089,7 @@ btnSubmit.onclick = async () => {
   const text = inputMsg.value.trim();
 
   if (!name || !text) {
-    showToast("ERROR: Missing data fields.", "error");
+    showToast("ERRO: Campos de dados faltando.", "error");
     return;
   }
 
@@ -1105,7 +1105,7 @@ btnSubmit.onclick = async () => {
   }
 
   btnSubmit.disabled = true;
-  btnSubmit.innerText = "ACQUIRING GPS...";
+  btnSubmit.innerText = "ADQUIRINDO GPS...";
 
   if (!navigator.geolocation) {
     showToast("Seu navegador não suporta geolocalização.", "error");
@@ -1116,7 +1116,7 @@ btnSubmit.onclick = async () => {
   navigator.geolocation.getCurrentPosition(
     async (pos) => {
       try {
-        btnSubmit.innerText = "UPLOADING...";
+        btnSubmit.innerText = "ENVIANDO...";
 
         const payload = {
           name: name,
@@ -1134,7 +1134,7 @@ btnSubmit.onclick = async () => {
 
         if (existingId) {
           await updateDoc(doc(db, "world_messages", existingId), payload);
-          showToast("Signal Updated!", "success");
+          showToast("Sinal Atualizado!", "success");
         } else {
           const docRef = await addDoc(
             collection(db, "world_messages"),
@@ -1145,7 +1145,8 @@ btnSubmit.onclick = async () => {
           // Update UI button state
           const btnOpen = document.getElementById("btn-open-modal");
           if (btnOpen)
-            btnOpen.innerHTML = '<span class="text-xl">↻</span> UPDATE SIGNAL';
+            btnOpen.innerHTML =
+              '<span class="text-xl">↻</span> ATUALIZAR SINAL';
         }
 
         localStorage.setItem("wmt_name", name);
@@ -1169,16 +1170,16 @@ btnSubmit.onclick = async () => {
         showToast("Erro ao salvar. Tente novamente.", "error");
       } finally {
         btnSubmit.disabled = false;
-        btnSubmit.innerText = "UPLOAD TO GRID 📡";
+        btnSubmit.innerText = "ENVIAR PARA A GRADE 📡";
       }
     },
     (err) => {
       showToast(
-        "ACCESS DENIED: Location required for node synchronization.",
+        "ACESSO NEGADO: Localização necessária para sincronização.",
         "error",
       );
       btnSubmit.disabled = false;
-      btnSubmit.innerText = "UPLOAD TO GRID 📡";
+      btnSubmit.innerText = "ENVIAR PARA A GRADE 📡";
     },
   );
 };
@@ -1234,9 +1235,9 @@ window.prepareDownload = (name, text, lat, lng) => {
 
 window.downloadCard = async () => {
   const card = document.getElementById("share-card");
-  if (document.getElementById("card-name").innerText === "CODENAME") {
-    const name = document.getElementById("input-name").value || "Anonymous";
-    const text = document.getElementById("input-msg").value || "Hello World";
+  if (document.getElementById("card-name").innerText === "CODINOME") {
+    const name = document.getElementById("input-name").value || "Anônimo";
+    const text = document.getElementById("input-msg").value || "Olá Mundo";
     document.getElementById("card-name").innerText = name;
     document.getElementById("card-text").innerText = `"${text}"`;
     document.getElementById("card-date").innerText = new Date()
@@ -1255,18 +1256,18 @@ window.downloadCard = async () => {
     link.click();
   } catch (err) {
     console.error("Image generation failed:", err);
-    showToast("Error generating image.", "error");
+    showToast("Erro ao gerar imagem.", "error");
   }
 };
 
 window.handleReaction = async (id, action) => {
   if (!currentUser) {
-    showToast("LOGIN REQUIRED TO REACT", "error");
+    showToast("LOGIN NECESSÁRIO PARA REAGIR", "error");
     return;
   }
 
   if (id.startsWith("fake_")) {
-    showToast("CANNOT REACT TO SIMULATED SIGNALS", "info");
+    showToast("NÃO É POSSÍVEL REAGIR A SINAIS SIMULADOS", "info");
     return;
   }
 
@@ -1310,7 +1311,7 @@ window.loginGuest = () => {
   signInAnonymously(auth).catch((error) => {
     console.error("Guest Login Error:", error);
     if (error.code === "auth/admin-restricted-operation") {
-      showToast("ERROR: Enable Anonymous Auth in Firebase Console", "error");
+      showToast("ERRO: Habilite Auth Anônima no Console Firebase", "error");
     } else {
       showToast(error.message, "error");
     }
@@ -1324,12 +1325,12 @@ window.toggleAudio = () => {
 
   if (audio.paused) {
     audio.play().catch((e) => console.log("Audio prevented:", e));
-    btn.innerText = "🔊 ON";
+    btn.innerText = "🔊 LIG";
     btn.classList.add("bg-cyan-600", "text-black");
     btn.classList.remove("text-cyan-400");
   } else {
     audio.pause();
-    btn.innerText = "🔇 OFF";
+    btn.innerText = "🔇 DESL";
     btn.classList.remove("bg-cyan-600", "text-black");
     btn.classList.add("text-cyan-400");
   }
@@ -1348,22 +1349,22 @@ window.toggleAutoPilot = () => {
   if (isAutoPilotOn) {
     btn.classList.add("bg-cyan-600", "text-black");
     btn.classList.remove("text-cyan-400");
-    btn.innerText = "PILOT: ON";
+    btn.innerText = "PILOTO: ON";
     moveCamera();
     autoPilotInterval = setInterval(moveCamera, 10000);
     // Start audio and update the audio button
     audio.play().catch((e) => console.log("Audio play failed:", e));
-    audioBtn.innerText = "🔊 ON";
+    audioBtn.innerText = "🔊 LIG";
     audioBtn.classList.add("bg-cyan-600", "text-black");
     audioBtn.classList.remove("text-cyan-400");
   } else {
     btn.classList.remove("bg-cyan-600", "text-black");
     btn.classList.add("text-cyan-400");
-    btn.innerText = "AUTO PILOT";
+    btn.innerText = "PILOTO AUTO";
     clearInterval(autoPilotInterval);
     // Stop audio and update the audio button
     audio.pause();
-    audioBtn.innerText = "🔇 OFF";
+    audioBtn.innerText = "🔇 DESL";
     audioBtn.classList.remove("bg-cyan-600", "text-black");
     audioBtn.classList.add("text-cyan-400");
   }
@@ -1415,7 +1416,7 @@ searchInput.addEventListener("input", (e) => {
   const val = e.target.value.toLowerCase();
   if (val === "the_architect") {
     localStorage.setItem("wmt_special_title", "HACKER");
-    showToast("ACCESS GRANTED. TITLE [ HACKER ] UNLOCKED.", "success");
+    showToast("ACESSO CONCEDIDO. TÍTULO [ HACKER ] DESBLOQUEADO.", "success");
     searchInput.value = "";
     return;
   }
@@ -1517,7 +1518,7 @@ window.toggleHistoryMode = () => {
     ui.classList.add("hidden");
     btn.classList.remove("bg-cyan-600", "text-black");
     clearInterval(historyPlayInterval);
-    document.getElementById("btn-play-history").innerText = "PLAY";
+    document.getElementById("btn-play-history").innerText = "TOCAR";
     if (historyPathLine) map.removeLayer(historyPathLine);
   }
 };
@@ -1534,15 +1535,15 @@ window.togglePlayHistory = () => {
   if (historyPlayInterval) {
     clearInterval(historyPlayInterval);
     historyPlayInterval = null;
-    btn.innerText = "PLAY";
+    btn.innerText = "TOCAR";
   } else {
-    btn.innerText = "PAUSE";
+    btn.innerText = "PAUSAR";
     historyPlayInterval = setInterval(() => {
       historyIdx++;
       if (historyIdx >= historyData.length) {
         clearInterval(historyPlayInterval);
         historyPlayInterval = null;
-        btn.innerText = "REPLAY";
+        btn.innerText = "REPETIR";
         return;
       }
       updateHistoryStep();
@@ -1576,7 +1577,7 @@ window.openHallOfFame = async () => {
   const list = document.getElementById("hall-of-fame-list");
   modal.classList.remove("hidden");
   list.innerHTML =
-    '<div class="text-center text-yellow-500 font-mono animate-pulse py-10">RETRIEVING LEGENDS...</div>';
+    '<div class="text-center text-yellow-500 font-mono animate-pulse py-10">RECUPERANDO LENDAS...</div>';
 
   try {
     const msgsRef = collection(db, "world_messages");
@@ -1618,7 +1619,7 @@ window.openHallOfFame = async () => {
   } catch (e) {
     console.error(e);
     list.innerHTML =
-      '<div class="text-center text-red-500">ERROR RETRIEVING DATA</div>';
+      '<div class="text-center text-red-500">ERRO AO RECUPERAR DADOS</div>';
   }
 };
 
@@ -1640,7 +1641,7 @@ window.openClanLeaderboard = () => {
   list.innerHTML = "";
   if (sortedClans.length === 0) {
     list.innerHTML =
-      '<div class="text-center text-red-500 font-mono py-10">NO CLANS DETECTED</div>';
+      '<div class="text-center text-red-500 font-mono py-10">NENHUM CLÃ DETECTADO</div>';
     return;
   }
 
@@ -1656,7 +1657,7 @@ window.openClanLeaderboard = () => {
                 <div class="text-red-500 font-bold uppercase text-lg">[${tag}]</div>
                 <div class="text-gray-400 text-xs font-mono">${
                   stats.members
-                } MEMBERS</div>
+                } MEMBROS</div>
             </div>
             <div class="text-red-600 font-mono text-xl font-bold">${
               stats.likes
@@ -1674,13 +1675,13 @@ window.openClanLeaderboard = () => {
 
     if (myRankIndex !== -1) {
       rivalryDiv.classList.remove("hidden");
-      let html = `<h3 class="text-red-400 font-bold uppercase text-sm mb-2">⚠️ RIVALRY INTEL ⚠️</h3>`;
+      let html = `<h3 class="text-red-400 font-bold uppercase text-sm mb-2">⚠️ INTELIGÊNCIA RIVAL ⚠️</h3>`;
       if (myRankIndex < sortedClans.length - 1) {
         const chaser = sortedClans[myRankIndex + 1];
         const diff = sortedClans[myRankIndex][1].likes - chaser[1].likes;
-        html += `<div class="text-xs text-red-200 font-mono mb-1">THREAT: <span class="text-white font-bold">[${chaser[0]}]</span> is <span class="text-red-500 font-bold">${diff} PTS</span> behind you.</div>`;
+        html += `<div class="text-xs text-red-200 font-mono mb-1">AMEAÇA: <span class="text-white font-bold">[${chaser[0]}]</span> está <span class="text-red-500 font-bold">${diff} PTS</span> atrás de você.</div>`;
       } else {
-        html += `<div class="text-xs text-red-200 font-mono mb-1">NO THREATS DETECTED BEHIND.</div>`;
+        html += `<div class="text-xs text-red-200 font-mono mb-1">NENHUMA AMEAÇA DETECTADA ATRÁS.</div>`;
       }
       rivalryDiv.innerHTML = html;
     } else {
@@ -1710,7 +1711,7 @@ window.openClanChat = () => {
 
   if (!match) {
     showToast(
-      "ACCESS DENIED: You must have a [TAG] in your name to access Clan Comms.",
+      "ACESSO NEGADO: Você deve ter uma [TAG] no nome para acessar o Chat de Clã.",
       "error",
     );
     return;
@@ -1718,7 +1719,7 @@ window.openClanChat = () => {
 
   const tag = match[1].toUpperCase();
   document.getElementById("clan-chat-tag").innerText =
-    `CHANNEL: [${tag}] // ENCRYPTED`;
+    `CANAL: [${tag}] // CRIPTOGRAFADO`;
   document.getElementById("modal-clan-chat").classList.remove("hidden");
 
   const chatRef = collection(db, "clan_messages");
