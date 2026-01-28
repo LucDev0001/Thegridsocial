@@ -28,9 +28,9 @@ self.addEventListener("activate", (e) => {
           if (key !== CACHE_NAME) {
             return caches.delete(key);
           }
-        })
+        }),
       );
-    })
+    }),
   );
   return self.clients.claim(); // Controla as páginas imediatamente
 });
@@ -46,16 +46,19 @@ self.addEventListener("fetch", (e) => {
   e.respondWith(
     fetch(e.request)
       .then((networkResponse) => {
-        // Clona a resposta para salvar no cache
-        const responseClone = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(e.request, responseClone);
-        });
+        // Verifica se a resposta é válida (status 200) antes de cachear.
+        // Isso evita o erro com status 206 (Partial Content) de arquivos de áudio/vídeo.
+        if (networkResponse && networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(e.request, responseClone);
+          });
+        }
         return networkResponse;
       })
       .catch(() => {
         // Se falhar (offline), retorna do cache
         return caches.match(e.request);
-      })
+      }),
   );
 });
