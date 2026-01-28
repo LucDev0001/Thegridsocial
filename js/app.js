@@ -770,9 +770,14 @@ const feedContent = document.getElementById("feed-content");
 
 document.getElementById("btn-toggle-feed").onclick = () => {
   feedPanel.classList.toggle("open");
+  const indicator = document.getElementById("feed-indicator");
+
   if (feedPanel.classList.contains("open")) {
+    if (indicator) indicator.classList.add("hidden");
+    localStorage.setItem("wmt_last_feed_view", Math.floor(Date.now() / 1000));
     loadFeed(false); // Inicia listener em tempo real
   } else {
+    localStorage.setItem("wmt_last_feed_view", Math.floor(Date.now() / 1000));
     if (feedUnsubscribe) {
       feedUnsubscribe(); // Para o listener ao fechar
       feedUnsubscribe = null;
@@ -1769,3 +1774,42 @@ if ("serviceWorker" in navigator) {
       .catch((err) => console.log("Falha ao registrar Service Worker:", err));
   });
 }
+
+// --- FEED NOTIFICATIONS ---
+function initFeedNotifications() {
+  const btn = document.getElementById("btn-toggle-feed");
+  if (btn) {
+    btn.classList.add("relative");
+    if (!document.getElementById("feed-indicator")) {
+      const dot = document.createElement("span");
+      dot.id = "feed-indicator";
+      dot.className =
+        "hidden absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_5px_#ef4444]";
+      btn.appendChild(dot);
+    }
+  }
+
+  const q = query(
+    collection(db, "world_messages"),
+    orderBy("timestamp", "desc"),
+    limit(1),
+  );
+
+  onSnapshot(q, (snapshot) => {
+    if (!snapshot.empty) {
+      const data = snapshot.docs[0].data();
+      const lastView =
+        parseInt(localStorage.getItem("wmt_last_feed_view")) || 0;
+      const isFeedOpen = document
+        .getElementById("feed-panel")
+        .classList.contains("open");
+
+      if (data.timestamp && data.timestamp.seconds > lastView && !isFeedOpen) {
+        const indicator = document.getElementById("feed-indicator");
+        if (indicator) indicator.classList.remove("hidden");
+      }
+    }
+  });
+}
+
+initFeedNotifications();
