@@ -62,38 +62,9 @@ export const translations = {
   // Outros idiomas podem ser adicionados aqui
 };
 
-export async function applyLanguage() {
-  let userLang = navigator.language.split("-")[0];
-  try {
-    const res = await fetch("https://get.geojs.io/v1/ip/country.json");
-    if (res.ok) {
-      const data = await res.json();
-      const country = data.country;
-      const countryMap = {
-        BR: "pt",
-        PT: "pt",
-        AO: "pt",
-        MZ: "pt",
-        ES: "es",
-        MX: "es",
-        AR: "es",
-        CO: "es",
-        CL: "es",
-        FR: "fr",
-        DE: "de",
-        CN: "zh",
-        JP: "ja",
-        RU: "ru",
-        IN: "hi",
-        SA: "ar",
-        AE: "ar",
-        EG: "ar",
-      };
-      if (countryMap[country]) userLang = countryMap[country];
-    }
-  } catch (e) {
-    console.log("Geo-IP skipped");
-  }
+export function applyLanguage() {
+  // Detecta o idioma diretamente do navegador (ex: "pt-BR" -> "pt")
+  const userLang = navigator.language.split("-")[0];
 
   const langData = translations[userLang] || translations["en"];
   const enData = translations["en"];
