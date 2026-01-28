@@ -39,6 +39,26 @@ export const translations = {
     btn_delete: "TERMINAR SINAL",
     error_profanity: "ERRO: Profanidade detectada no fluxo de dados.",
   },
+  es: {
+    title: "The Grid Social",
+    subtitle: "Una red neuronal global de pensamientos humanos.",
+    msgs_label: "NODOS ACTIVOS",
+    btn_action: "INICIAR ENLACE",
+    modal_title: "TRANSMISIÓN",
+    modal_desc: "Estableciendo conexión segura con coordenadas actuales.",
+    label_name: "NOMBRE EN CLAVE / ID",
+    ph_name: "Identidad...",
+    label_msg: "PAQUETE DE DATOS",
+    ph_msg: "Ingrese flujo de datos...",
+    btn_submit: "SUBIR A LA RED",
+    success_title: "CARGA COMPLETA",
+    success_desc: "Su nodo de datos se ha sincronizado globalmente.",
+    btn_close: "[ Cerrar Terminal ]",
+    btn_action_update: "ACTUALIZAR SEÑAL",
+    btn_submit_update: "ACTUALIZAR RED",
+    btn_delete: "TERMINAR SEÑAL",
+    error_profanity: "ERROR: Profanidad detectada en el flujo de datos.",
+  },
   // Outros idiomas podem ser adicionados aqui
 };
 
