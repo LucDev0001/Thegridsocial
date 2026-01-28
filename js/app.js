@@ -104,6 +104,12 @@ function loadMessages(sortBy = "timestamp") {
     snapshot.docChanges().forEach((change) => {
       if (change.type === "added") {
         const data = change.doc.data();
+
+        // --- FIX: WIPE SYSTEM (Ignora mensagens com mais de 24h) ---
+        const oneDayAgo = Date.now() / 1000 - 86400;
+        if (data.timestamp && data.timestamp.seconds < oneDayAgo) return;
+        // -----------------------------------------------------------
+
         if (data.lat && data.lng) {
           const currentLatLng = new L.LatLng(data.lat, data.lng);
 
@@ -286,6 +292,20 @@ function loadMessages(sortBy = "timestamp") {
           const replyCount = data.replyCount || 0;
           // (Simplificação: o botão de reply já tem o onclick, apenas o texto mudaria, mas para Spark plan não vamos ouvir replies em tempo real no mapa global para economizar, apenas likes)
         }
+      } else if (change.type === "removed") {
+        // --- FIX: REAL-TIME REMOVAL ---
+        const marker = markersMap[change.doc.id];
+        if (marker) {
+          map.removeLayer(marker);
+          delete markersMap[change.doc.id];
+
+          // Remove do índice de busca também
+          const idx = searchIndex.findIndex(
+            (item) => item.id === change.doc.id,
+          );
+          if (idx > -1) searchIndex.splice(idx, 1);
+        }
+        // ------------------------------
       }
     });
   });
