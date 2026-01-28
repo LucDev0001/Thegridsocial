@@ -46,6 +46,7 @@ let clanChatUnsubscribe = null; // Listener do chat
 let lastFeedDoc = null; // Paginação do feed
 let currentUser = null; // Usuário logado
 let notificationsUnsubscribe = null; // Listener de notificações
+let feedUnsubscribe = null; // Listener do Feed em tempo real
 
 function clearMap() {
   // Remove marcadores
@@ -769,71 +770,111 @@ const feedContent = document.getElementById("feed-content");
 
 document.getElementById("btn-toggle-feed").onclick = () => {
   feedPanel.classList.toggle("open");
-  if (
-    feedPanel.classList.contains("open") &&
-    feedContent.children.length <= 1
-  ) {
-    loadFeed();
+  if (feedPanel.classList.contains("open")) {
+    loadFeed(false); // Inicia listener em tempo real
+  } else {
+    if (feedUnsubscribe) {
+      feedUnsubscribe(); // Para o listener ao fechar
+      feedUnsubscribe = null;
+    }
   }
 };
-document.getElementById("btn-close-feed").onclick = () =>
+document.getElementById("btn-close-feed").onclick = () => {
   feedPanel.classList.remove("open");
+  if (feedUnsubscribe) {
+    feedUnsubscribe();
+    feedUnsubscribe = null;
+  }
+};
+
+// Helper para criar o elemento do feed
+function createFeedItem(doc) {
+  const data = doc.data();
+  const div = document.createElement("div");
+  div.id = `feed-item-${doc.id}`;
+  div.className =
+    "bg-black/40 border border-cyan-900/50 p-3 hover:bg-cyan-900/20 transition cursor-pointer mb-2";
+  div.innerHTML = `
+          <div class="flex justify-between text-xs text-cyan-500 font-bold mb-1">
+              <span>${data.name}</span>
+              <span>${new Date(
+                data.timestamp?.seconds * 1000,
+              ).toLocaleDateString()}</span>
+          </div>
+          <div class="text-gray-300 text-sm font-mono mb-2">"${data.text}"</div>
+          <div class="flex justify-between text-xs text-gray-500">
+              <span>👍 ${data.likedBy ? data.likedBy.length : 0}</span>
+              <span>↩ ${data.replyCount || 0}</span>
+          </div>
+      `;
+  div.onclick = () => {
+    map.flyTo([data.lat, data.lng], 14, { duration: 2 });
+    const marker = markersMap[doc.id];
+    if (marker) setTimeout(() => marker.openPopup(), 2200);
+    if (window.innerWidth < 768) feedPanel.classList.remove("open"); // Close on mobile
+  };
+  return div;
+}
 
 async function loadFeed(isMore = false) {
   if (!isMore) {
+    // --- MODO TEMPO REAL (Carga Inicial) ---
+    if (feedUnsubscribe) feedUnsubscribe();
     feedContent.innerHTML = "";
     lastFeedDoc = null;
-  }
 
-  let q = query(
-    collection(db, "world_messages"),
-    orderBy("timestamp", "desc"),
-    limit(20),
-  );
-  if (lastFeedDoc) {
-    q = query(
+    const q = query(
+      collection(db, "world_messages"),
+      orderBy("timestamp", "desc"),
+      limit(20),
+    );
+
+    feedUnsubscribe = onSnapshot(q, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const doc = change.doc;
+        if (change.type === "added") {
+          const div = createFeedItem(doc);
+          // Insere na posição correta (importante para carga inicial vs novas mensagens)
+          const items = feedContent.children;
+          if (change.newIndex < items.length) {
+            feedContent.insertBefore(div, items[change.newIndex]);
+          } else {
+            feedContent.appendChild(div);
+          }
+        } else if (change.type === "modified") {
+          const existing = document.getElementById(`feed-item-${doc.id}`);
+          if (existing) existing.replaceWith(createFeedItem(doc));
+        } else if (change.type === "removed") {
+          const existing = document.getElementById(`feed-item-${doc.id}`);
+          if (existing) existing.remove();
+        }
+      });
+
+      if (!snapshot.empty) {
+        lastFeedDoc = snapshot.docs[snapshot.docs.length - 1];
+      }
+    });
+  } else {
+    // --- MODO ESTÁTICO (Carregar Mais Antigos) ---
+    if (!lastFeedDoc) return;
+
+    const q = query(
       collection(db, "world_messages"),
       orderBy("timestamp", "desc"),
       startAfter(lastFeedDoc),
       limit(20),
     );
-  }
 
-  const snapshot = await getDocs(q);
-  if (!snapshot.empty) {
-    lastFeedDoc = snapshot.docs[snapshot.docs.length - 1];
-  } else {
-    if (isMore) showToast("No more signals.", "info");
+    const snapshot = await getDocs(q);
+    if (!snapshot.empty) {
+      lastFeedDoc = snapshot.docs[snapshot.docs.length - 1];
+      snapshot.forEach((doc) => {
+        feedContent.appendChild(createFeedItem(doc));
+      });
+    } else {
+      showToast("No more signals.", "info");
+    }
   }
-
-  snapshot.forEach((doc) => {
-    const data = doc.data();
-    const div = document.createElement("div");
-    div.className =
-      "bg-black/40 border border-cyan-900/50 p-3 hover:bg-cyan-900/20 transition cursor-pointer";
-    div.innerHTML = `
-            <div class="flex justify-between text-xs text-cyan-500 font-bold mb-1">
-                <span>${data.name}</span>
-                <span>${new Date(
-                  data.timestamp?.seconds * 1000,
-                ).toLocaleDateString()}</span>
-            </div>
-            <div class="text-gray-300 text-sm font-mono mb-2">"${
-              data.text
-            }"</div>
-            <div class="flex justify-between text-xs text-gray-500">
-                <span>👍 ${data.likedBy ? data.likedBy.length : 0}</span>
-                <span>↩ ${data.replyCount || 0}</span>
-            </div>
-        `;
-    div.onclick = () => {
-      map.flyTo([data.lat, data.lng], 14, { duration: 2 });
-      const marker = markersMap[doc.id];
-      if (marker) setTimeout(() => marker.openPopup(), 2200);
-      if (window.innerWidth < 768) feedPanel.classList.remove("open"); // Close on mobile
-    };
-    feedContent.appendChild(div);
-  });
 }
 
 document.getElementById("btn-load-more").onclick = () => loadFeed(true);
