@@ -1783,8 +1783,9 @@ function initFeedNotifications() {
     if (!document.getElementById("feed-indicator")) {
       const dot = document.createElement("span");
       dot.id = "feed-indicator";
+      // Updated style for counter
       dot.className =
-        "hidden absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_5px_#ef4444]";
+        "hidden absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-[0_0_5px_#ef4444] min-w-[18px] text-center flex items-center justify-center z-10";
       btn.appendChild(dot);
     }
   }
@@ -1792,21 +1793,33 @@ function initFeedNotifications() {
   const q = query(
     collection(db, "world_messages"),
     orderBy("timestamp", "desc"),
-    limit(1),
+    limit(20),
   );
 
   onSnapshot(q, (snapshot) => {
-    if (!snapshot.empty) {
-      const data = snapshot.docs[0].data();
-      const lastView =
-        parseInt(localStorage.getItem("wmt_last_feed_view")) || 0;
-      const isFeedOpen = document
-        .getElementById("feed-panel")
-        .classList.contains("open");
+    const lastView = parseInt(localStorage.getItem("wmt_last_feed_view")) || 0;
+    const isFeedOpen = document
+      .getElementById("feed-panel")
+      .classList.contains("open");
 
-      if (data.timestamp && data.timestamp.seconds > lastView && !isFeedOpen) {
-        const indicator = document.getElementById("feed-indicator");
-        if (indicator) indicator.classList.remove("hidden");
+    if (isFeedOpen) return;
+
+    let unreadCount = 0;
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.timestamp && data.timestamp.seconds > lastView) {
+        unreadCount++;
+      }
+    });
+
+    const indicator = document.getElementById("feed-indicator");
+    if (indicator) {
+      if (unreadCount > 0) {
+        indicator.innerText = unreadCount > 19 ? "19+" : unreadCount;
+        indicator.classList.remove("hidden");
+        indicator.classList.add("animate-pulse");
+      } else {
+        indicator.classList.add("hidden");
       }
     }
   });
