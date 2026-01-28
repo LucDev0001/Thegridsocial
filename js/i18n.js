@@ -66,13 +66,13 @@ export function applyLanguage() {
   // Detecta o idioma diretamente do navegador (ex: "pt-BR" -> "pt")
   const userLang = navigator.language.split("-")[0];
 
-  const langData = translations[userLang] || translations["en"];
-  const enData = translations["en"];
+  const langData = translations[userLang] || translations["pt"];
+  const defaultData = translations["pt"];
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
     if (langData && langData[key]) el.innerText = langData[key];
-    else if (enData && enData[key]) el.innerText = enData[key];
+    else if (defaultData && defaultData[key]) el.innerText = defaultData[key];
   });
 
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
