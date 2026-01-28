@@ -1,0 +1,10 @@
+Prompt para IA de Imagem (Midjourney / DALL-E 3):
+
+"A futuristic, cinematic wide shot of a digital world map interface displayed on a high-tech holographic screen. The style is Cyberpunk/Sci-Fi with a deep black background (#050505) and glowing neon cyan (#06b6d4) data nodes connected by neural network lines across the continents.
+
+Key elements to include:
+1. A prominent countdown timer in red digital font showing '00:00:00'.
+2. Floating UI panels with 'CLAN WARS' and 'HALL OF FAME' statistics.
+3. A glowing 'The Grid Social' logo in a brutalist, tech font.
+4. Atmosphere: Mysterious, engaging, data-driven, with a slight glitch effect.
+5. Aspect Ratio: 16:9 (perfect for social media sharing)."

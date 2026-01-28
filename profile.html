@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Grid - Operator Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../css/styles.css" />
+    <style>
+      body {
+        background-color: #050505;
+        background-image: radial-gradient(
+          circle at 50% 50%,
+          #111827 0%,
+          #000000 100%
+        );
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen text-cyan-100 font-['Rajdhani'] flex items-center justify-center p-4"
+  >
+    <div class="scanlines"></div>
+
+    <div
+      class="w-full max-w-2xl glass-tech border-y-4 border-yellow-500 relative p-8"
+    >
+      <!-- Header -->
+      <div
+        class="flex justify-between items-center mb-8 border-b border-gray-800 pb-4"
+      >
+        <h1
+          class="text-3xl md:text-4xl font-bold text-yellow-500 uppercase tracking-widest text-glow"
+        >
+          OPERATOR PROFILE
+        </h1>
+        <a
+          href="/"
+          class="text-cyan-500 hover:text-white uppercase text-sm font-bold border border-cyan-700 px-4 py-2 hover:bg-cyan-900/50 transition"
+        >
+          &larr; RETURN TO GRID
+        </a>
+      </div>
+
+      <!-- Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Left: Avatar & Stats -->
+        <div class="flex flex-col items-center text-center space-y-4">
+          <div
+            class="w-32 h-32 rounded-full border-4 border-yellow-500/50 bg-black flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]"
+          >
+            <span class="text-5xl">👤</span>
+          </div>
+          <div>
+            <div
+              id="profile-email-display"
+              class="text-gray-400 font-mono text-sm"
+            >
+              loading...
+            </div>
+            <div class="text-xs text-yellow-600 mt-1 uppercase tracking-widest">
+              Verified Node
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Edit Form -->
+        <div class="space-y-6">
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase mb-1"
+              >Display Name / Codename</label
+            >
+            <input
+              type="text"
+              id="profile-name"
+              class="auth-input bg-black/50"
+              placeholder="Enter codename..."
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase mb-1"
+              >System ID</label
+            >
+            <div
+              id="profile-uid"
+              class="p-3 bg-black/30 border border-gray-800 font-mono text-xs text-gray-500 break-all"
+            >
+              ...
+            </div>
+          </div>
+
+          <button
+            id="btn-save-profile"
+            class="w-full bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-3 uppercase tracking-widest transition shadow-[0_0_15px_rgba(234,179,8,0.3)]"
+          >
+            UPDATE DATA
+          </button>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="mt-12 pt-6 border-t border-red-900/30">
+        <h3 class="text-red-500 font-bold uppercase text-sm mb-4">
+          DANGER ZONE
+        </h3>
+        <div class="flex flex-col md:flex-row gap-4">
+          <button
+            id="btn-logout"
+            class="flex-1 border border-gray-600 text-gray-400 hover:text-white hover:border-white py-3 uppercase text-xs font-bold transition"
+          >
+            DISCONNECT SESSION
+          </button>
+          <button
+            id="btn-delete-account"
+            class="flex-1 border border-red-900 text-red-800 hover:bg-red-900 hover:text-white py-3 uppercase text-xs font-bold transition"
+          >
+            DELETE ACCOUNT PERMANENTLY
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div
+      id="toast-container"
+      class="fixed top-4 right-4 z-[9999] flex flex-col gap-2 pointer-events-none"
+    ></div>
+
+    <script type="module" src="profile.js"></script>
+  </body>
+</html>

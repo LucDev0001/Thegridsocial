@@ -1,0 +1,21 @@
+{
+  "name": "The Grid Social",
+  "short_name": "The Grid",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#06b6d4",
+  "description": "Uma rede social minimalista baseada em localização. Conecte-se ao mapa global.",
+  "icons": [
+    {
+      "src": "https://fav.farm/🌍",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://fav.farm/🌍",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

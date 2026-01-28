@@ -1,0 +1,279 @@
+body {
+  font-family: "Rajdhani", sans-serif;
+  background-color: #050505;
+  color: #e0f2fe;
+}
+#map {
+  height: 100vh;
+  width: 100%;
+  z-index: 0;
+  background: #050505;
+}
+
+/* Tech Glassmorphism Dark */
+.glass-tech {
+  background: rgba(10, 10, 15, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(6, 182, 212, 0.3); /* Cyan border */
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
+}
+
+/* Neon Glow Text */
+.text-glow {
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.7);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #06b6d4;
+  border-radius: 4px;
+}
+
+/* Marker Pulse Effect */
+.marker-pin {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #06b6d4;
+  box-shadow: 0 0 0 rgba(6, 182, 212, 0.4);
+  animation: pulse-cyan 2s infinite;
+}
+@keyframes pulse-cyan {
+  0% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(6, 182, 212, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+  }
+}
+
+/* Level 2: Veteran (Purple) */
+.marker-pin-purple {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #a855f7;
+  box-shadow: 0 0 0 rgba(168, 85, 247, 0.4);
+  animation: pulse-purple 2s infinite;
+}
+@keyframes pulse-purple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(168, 85, 247, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0);
+  }
+}
+
+/* Level 3: Legend (Gold) */
+.marker-pin-gold {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #eab308;
+  box-shadow: 0 0 0 rgba(234, 179, 8, 0.4);
+  animation: pulse-gold 2s infinite;
+}
+@keyframes pulse-gold {
+  0% {
+    box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(234, 179, 8, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(234, 179, 8, 0);
+  }
+}
+
+/* Static Glitch Effect for Card */
+.glitch-static {
+  position: relative;
+  text-shadow: 2px 0 rgba(255, 0, 193, 0.7), -2px 0 rgba(0, 255, 249, 0.7);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: rgba(10, 10, 15, 0.9) !important;
+  border: 1px solid #06b6d4 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+}
+
+/* Feed Panel Slide-in */
+.feed-panel {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+.feed-panel.open {
+  transform: translateX(0);
+}
+
+/* Thread/Reply Modal */
+.thread-modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Mobile First Adjustments for Feed */
+@media (max-width: 768px) {
+  .feed-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Auth Forms */
+.auth-input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #164e63;
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  font-family: monospace;
+  outline: none;
+}
+.auth-input:focus {
+  border-color: #06b6d4;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+}
+
+/* Neural Network Lines Animation */
+.neural-line {
+  stroke-dasharray: 4 8;
+  stroke-linecap: round;
+  animation: flow 60s linear infinite;
+}
+@keyframes flow {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Reverse Spin Animation */
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+.animate-spin-reverse {
+  animation: spin-reverse 2s linear infinite;
+}
+
+/* Scanline Effect */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 100% 4px;
+  z-index: 2500;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+/* Radar Effect */
+.radar-wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #06b6d4;
+  border-radius: 50%;
+  opacity: 0;
+  animation: radar-expand 2s infinite ease-out;
+  box-shadow: 0 0 10px #06b6d4;
+}
+.radar-wave:nth-child(2) {
+  animation-delay: 0.6s;
+}
+.radar-wave:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+@keyframes radar-expand {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+    border-width: 3px;
+  }
+  100% {
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    border-width: 0px;
+  }
+}
+
+/* Toast Notifications */
+.toast {
+  pointer-events: auto;
+  background: rgba(5, 5, 5, 0.95);
+  border-left: 4px solid #06b6d4;
+  color: #fff;
+  padding: 12px 20px;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+  animation: slideIn 0.3s ease-out forwards;
+  max-width: 300px;
+  font-size: 0.875rem;
+  backdrop-filter: blur(5px);
+}
+.toast.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+}
+.toast.success {
+  border-color: #22c55e;
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Profile Page Specific */
+.profile-bg {
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    #111827 0%,
+    #000000 100%
+  );
+}
