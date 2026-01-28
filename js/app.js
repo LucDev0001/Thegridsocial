@@ -72,7 +72,7 @@ const eggMarker = L.circleMarker([25.0, -71.0], {
 
 eggMarker.on("click", () => {
   showToast(
-    "⚠️ SYSTEM ANOMALY DETECTED ⚠️\n\nCOORDINATES: 25.0, -71.0\nENCRYPTED SIGNAL FOUND.\n\nACCESS CODE REQUIRED IN SEARCH BAR: 'THE_ARCHITECT'"
+    "⚠️ SYSTEM ANOMALY DETECTED ⚠️\n\nCOORDINATES: 25.0, -71.0\nENCRYPTED SIGNAL FOUND.\n\nACCESS CODE REQUIRED IN SEARCH BAR: 'THE_ARCHITECT'",
   );
 });
 
@@ -212,7 +212,7 @@ function loadMessages(sortBy = "timestamp") {
           const authorUid = data.uid || null;
           let nameHtml = `<strong style="color: ${lineColor}; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">${authorName.replace(
             /</g,
-            "&lt;"
+            "&lt;",
           )}</strong>`;
           if (authorUid && currentUser && authorUid !== currentUser.uid) {
             const safeAuthorName = authorName
@@ -252,7 +252,7 @@ function loadMessages(sortBy = "timestamp") {
           const likeSpan = document.getElementById(`likes-${change.doc.id}`);
           if (likeSpan) likeSpan.innerText = likeCount;
           const dislikeSpan = document.getElementById(
-            `dislikes-${change.doc.id}`
+            `dislikes-${change.doc.id}`,
           );
           if (dislikeSpan) dislikeSpan.innerText = dislikeCount;
 
@@ -276,7 +276,7 @@ function loadMessages(sortBy = "timestamp") {
             if (currentContent.match(buttonsRegex)) {
               const newContent = currentContent.replace(
                 buttonsRegex,
-                newButtonsHTML
+                newButtonsHTML,
               );
               marker.setPopupContent(newContent);
             }
@@ -402,15 +402,15 @@ function renderFakeMarkers() {
                 <p style="margin: 6px 0; font-size: 14px; color: #e0f2fe;">"${safeText}"</p>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
                     <span style="font-size: 10px; color: #64748b; font-family: monospace;">COORDS: ${msg.lat.toFixed(
-                      2
+                      2,
                     )}, ${msg.lng.toFixed(2)}</span>
                     <div style="display: flex; align-items: center; gap: 5px;">
                         <button onclick="likeMessage('${id}')" style="background: none; border: none; cursor: pointer; color: #64748b; font-size: 16px; padding: 0; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">♥</button>
                         <button onclick="prepareDownload('${safeNameEscaped}', '${safeTextEscaped}', ${
-      msg.lat
-    }, ${
-      msg.lng
-    })" style="background: none; border: none; cursor: pointer; color: #06b6d4; font-size: 16px; padding: 0; margin-left: 5px;" title="Download Image">📸</button>
+                          msg.lat
+                        }, ${
+                          msg.lng
+                        })" style="background: none; border: none; cursor: pointer; color: #06b6d4; font-size: 16px; padding: 0; margin-left: 5px;" title="Download Image">📸</button>
                         <span id="likes-${id}" style="font-size: 12px; color: #e0f2fe;">${likes}</span>
                     </div>
                 </div>
@@ -550,7 +550,7 @@ onAuthStateChanged(auth, (user) => {
         displayName: user.displayName || user.email.split("@")[0],
         email: user.email,
       },
-      { merge: true }
+      { merge: true },
     );
 
     // Listen for user stats (followers, etc.)
@@ -568,7 +568,7 @@ onAuthStateChanged(auth, (user) => {
     const qMsg = query(
       collection(db, "world_messages"),
       where("uid", "==", user.uid),
-      limit(1)
+      limit(1),
     );
 
     getDocs(qMsg).then((snapshot) => {
@@ -601,7 +601,7 @@ onAuthStateChanged(auth, (user) => {
       collection(db, "notifications"),
       where("to", "==", user.uid),
       orderBy("timestamp", "desc"),
-      limit(5)
+      limit(5),
     );
 
     notificationsUnsubscribe = onSnapshot(notifQuery, (snapshot) => {
@@ -688,7 +688,7 @@ window.openPublicProfile = async (targetUid, targetName) => {
 
   if (currentUserSnap.exists()) {
     const isFollowing = (currentUserSnap.data().following || []).includes(
-      targetUid
+      targetUid,
     );
     followBtn.innerText = isFollowing ? "UNFOLLOW" : "FOLLOW";
     followBtn.className = isFollowing
@@ -708,7 +708,7 @@ window.handleFollow = async (targetUid, targetName) => {
   const targetUserRef = doc(db, "users", targetUid);
   const currentUserSnap = await getDoc(currentUserRef);
   const isFollowing = (currentUserSnap.data().following || []).includes(
-    targetUid
+    targetUid,
   );
   const batch = writeBatch(db);
 
@@ -768,14 +768,14 @@ async function loadFeed(isMore = false) {
   let q = query(
     collection(db, "world_messages"),
     orderBy("timestamp", "desc"),
-    limit(20)
+    limit(20),
   );
   if (lastFeedDoc) {
     q = query(
       collection(db, "world_messages"),
       orderBy("timestamp", "desc"),
       startAfter(lastFeedDoc),
-      limit(20)
+      limit(20),
     );
   }
 
@@ -795,7 +795,7 @@ async function loadFeed(isMore = false) {
             <div class="flex justify-between text-xs text-cyan-500 font-bold mb-1">
                 <span>${data.name}</span>
                 <span>${new Date(
-                  data.timestamp?.seconds * 1000
+                  data.timestamp?.seconds * 1000,
                 ).toLocaleDateString()}</span>
             </div>
             <div class="text-gray-300 text-sm font-mono mb-2">"${
@@ -873,7 +873,7 @@ window.openThread = async (msgId) => {
   const q = query(
     collection(db, "world_messages", msgId, "replies"),
     orderBy("timestamp", "asc"),
-    limit(50)
+    limit(50),
   );
   const snapshot = await getDocs(q);
   repliesDiv.innerHTML = "";
@@ -999,14 +999,14 @@ inputName.addEventListener("input", (e) => {
     inputName.classList.add(
       "border-green-500",
       "text-green-400",
-      "shadow-[0_0_10px_rgba(34,197,94,0.3)]"
+      "shadow-[0_0_10px_rgba(34,197,94,0.3)]",
     );
     inputName.classList.remove("border-cyan-900", "text-cyan-100");
   } else {
     inputName.classList.remove(
       "border-green-500",
       "text-green-400",
-      "shadow-[0_0_10px_rgba(34,197,94,0.3)]"
+      "shadow-[0_0_10px_rgba(34,197,94,0.3)]",
     );
     inputName.classList.add("border-cyan-900", "text-cyan-100");
   }
@@ -1033,7 +1033,7 @@ btnSubmit.onclick = async () => {
     showToast(
       translations[userLang]?.error_profanity ||
         translations["en"].error_profanity,
-      "error"
+      "error",
     );
     return;
   }
@@ -1072,7 +1072,7 @@ btnSubmit.onclick = async () => {
         } else {
           const docRef = await addDoc(
             collection(db, "world_messages"),
-            payload
+            payload,
           );
           localStorage.setItem("wmt_msg_id", docRef.id);
 
@@ -1109,17 +1109,17 @@ btnSubmit.onclick = async () => {
     (err) => {
       showToast(
         "ACCESS DENIED: Location required for node synchronization.",
-        "error"
+        "error",
       );
       btnSubmit.disabled = false;
       btnSubmit.innerText = "UPLOAD TO GRID 📡";
-    }
+    },
   );
 };
 
 // Funções Globais (Window)
 window.share = (platform) => {
-  const url = "https://thegridsocial.netlify.app";
+  const url = "https://thegridsocial.vercel.app";
   const localName = localStorage.getItem("wmt_name");
   const match = localName ? localName.match(/^\[([a-zA-Z0-9_-]+)\]/) : null;
 
@@ -1137,20 +1137,20 @@ window.share = (platform) => {
   if (platform === "whatsapp") {
     window.open(
       `https://wa.me/?text=${encodeURIComponent(text + " " + url)}`,
-      "_blank"
+      "_blank",
     );
   } else if (platform === "twitter") {
     window.open(
       `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-        text
+        text,
       )}&url=${encodeURIComponent(url)}`,
-      "_blank"
+      "_blank",
     );
   }
 };
 
 window.copyLink = () => {
-  navigator.clipboard.writeText("https://thegridsocial.netlify.app");
+  navigator.clipboard.writeText("https://thegridsocial.vercel.app");
   showToast("Link copiado para a área de transferência!", "success");
 };
 
@@ -1158,7 +1158,7 @@ window.prepareDownload = (name, text, lat, lng) => {
   document.getElementById("card-name").innerText = name;
   document.getElementById("card-text").innerText = `"${text}"`;
   document.getElementById("card-coords").innerText = `${lat.toFixed(
-    4
+    4,
   )}, ${lng.toFixed(4)}`;
   document.getElementById("card-date").innerText = new Date()
     .toISOString()
@@ -1361,7 +1361,7 @@ searchInput.addEventListener("input", (e) => {
     .filter(
       (item) =>
         (item.name && item.name.toLowerCase().includes(val)) ||
-        (item.text && item.text.toLowerCase().includes(val))
+        (item.text && item.text.toLowerCase().includes(val)),
     )
     .slice(0, 10);
   renderSuggestions(matches);
@@ -1492,7 +1492,7 @@ function updateHistoryStep() {
     historyData.length
   }`;
   document.getElementById("history-date").innerText = new Date(
-    (data.timestamp?.seconds || Date.now() / 1000) * 1000
+    (data.timestamp?.seconds || Date.now() / 1000) * 1000,
   ).toLocaleDateString();
   map.flyTo([data.lat, data.lng], 6, { duration: 1.5 });
   const marker = markersMap[data.id];
@@ -1645,15 +1645,14 @@ window.openClanChat = () => {
   if (!match) {
     showToast(
       "ACCESS DENIED: You must have a [TAG] in your name to access Clan Comms.",
-      "error"
+      "error",
     );
     return;
   }
 
   const tag = match[1].toUpperCase();
-  document.getElementById(
-    "clan-chat-tag"
-  ).innerText = `CHANNEL: [${tag}] // ENCRYPTED`;
+  document.getElementById("clan-chat-tag").innerText =
+    `CHANNEL: [${tag}] // ENCRYPTED`;
   document.getElementById("modal-clan-chat").classList.remove("hidden");
 
   const chatRef = collection(db, "clan_messages");

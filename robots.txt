@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thegridsocial.netlify.app/sitemap.xml
+Sitemap: https://thegridsocial.vercel.app/sitemap.xml

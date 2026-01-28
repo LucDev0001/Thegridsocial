@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" prefix="og: http://ogp.me/ns#">
   <head>
     <meta charset="UTF-8" />
@@ -14,7 +14,7 @@
       name="keywords"
       content="the grid, social network, map, cyberpunk, firebase, location based"
     />
-    <link rel="canonical" href="https://thegridsocial.netlify.app" />
+    <link rel="canonical" href="https://thegridsocial.vercel.app" />
     <link rel="icon" href="https://fav.farm/🌍" />
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#050505" />
@@ -23,7 +23,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="https://thegridsocial.netlify.app/index.html"
+      content="https://thegridsocial.vercel.app/index.html"
     />
     <meta property="og:title" content="The Grid Social" />
     <meta
@@ -32,7 +32,7 @@
     />
     <meta
       property="og:image"
-      content="https://thegridsocial.netlify.app/og-image.jpg"
+      content="https://thegridsocial.vercel.app/og-image.jpg"
     />
 
     <!-- Tailwind CSS -->
@@ -1067,7 +1067,7 @@
             Name in your profile.
           </p>
           <button
-            onclick="window.location.href='src/view/profile.html'"
+            onclick="window.location.href = 'src/view/profile.html'"
             class="w-full bg-cyan-600 hover:bg-cyan-500 text-black font-bold py-2 uppercase tracking-widest transition text-xs"
           >
             GO TO PROFILE
@@ -1136,7 +1136,8 @@
         <div
           class="absolute inset-0 opacity-20"
           style="
-            background-image: linear-gradient(#06b6d4 1px, transparent 1px),
+            background-image:
+              linear-gradient(#06b6d4 1px, transparent 1px),
               linear-gradient(90deg, #06b6d4 1px, transparent 1px);
             background-size: 20px 20px;
           "
