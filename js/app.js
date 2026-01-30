@@ -87,150 +87,152 @@ function loadMessages(sortBy = "timestamp") {
   const msgsRef = collection(db, "world_messages");
   const q = query(msgsRef, orderBy(sortBy, "desc"), limit(200));
 
-  unsubscribe = onSnapshot(q, (snapshot) => {
-    // Total = Real + Fake
-    const totalCount = snapshot.size + fakeMsgs.length;
-    document.getElementById("total-msgs").innerText = totalCount;
-    document.getElementById("welcome-total-msgs").innerText = totalCount; // Update modal stats
-    updateCountryStats(snapshot);
-    updateMotD(snapshot); // Update Message of the Day
-    updateClanStats(snapshot); // Update Clan Stats
+  unsubscribe = onSnapshot(
+    q,
+    (snapshot) => {
+      // Total = Real + Fake
+      const totalCount = snapshot.size + fakeMsgs.length;
+      document.getElementById("total-msgs").innerText = totalCount;
+      document.getElementById("welcome-total-msgs").innerText = totalCount; // Update modal stats
+      updateCountryStats(snapshot);
+      updateMotD(snapshot); // Update Message of the Day
+      updateClanStats(snapshot); // Update Clan Stats
 
-    // Hide Loading Screen
-    const loader = document.getElementById("loading-screen");
-    if (loader) {
-      loader.classList.add("opacity-0", "pointer-events-none");
-    }
+      // Hide Loading Screen
+      const loader = document.getElementById("loading-screen");
+      if (loader) {
+        loader.classList.add("opacity-0", "pointer-events-none");
+      }
 
-    snapshot.docChanges().forEach((change) => {
-      if (change.type === "added") {
-        const data = change.doc.data();
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          const data = change.doc.data();
 
-        // --- FIX: WIPE SYSTEM (Ignora mensagens com mais de 24h) ---
-        const oneDayAgo = Date.now() / 1000 - 86400;
-        if (data.timestamp && data.timestamp.seconds < oneDayAgo) return;
-        // -----------------------------------------------------------
+          // --- FIX: WIPE SYSTEM (Ignora mensagens com mais de 24h) ---
+          const oneDayAgo = Date.now() / 1000 - 86400;
+          if (data.timestamp && data.timestamp.seconds < oneDayAgo) return;
+          // -----------------------------------------------------------
 
-        if (data.lat && data.lng) {
-          const currentLatLng = new L.LatLng(data.lat, data.lng);
+          if (data.lat && data.lng) {
+            const currentLatLng = new L.LatLng(data.lat, data.lng);
 
-          // New Like/Dislike Logic
-          const likedBy = data.likedBy || [];
-          const dislikedBy = data.dislikedBy || [];
-          const likeCount = likedBy.length;
-          const dislikeCount = dislikedBy.length;
-          const specialTitle = data.specialTitle;
+            // New Like/Dislike Logic
+            const likedBy = data.likedBy || [];
+            const dislikedBy = data.dislikedBy || [];
+            const likeCount = likedBy.length;
+            const dislikeCount = dislikedBy.length;
+            const specialTitle = data.specialTitle;
 
-          // --- GAMIFICATION: LEVEL SYSTEM ---
-          let markerClass = "marker-pin"; // Level 1 (Cyan)
-          let lineColor = "#06b6d4";
-          let rankTitle = "";
+            // --- GAMIFICATION: LEVEL SYSTEM ---
+            let markerClass = "marker-pin"; // Level 1 (Cyan)
+            let lineColor = "#06b6d4";
+            let rankTitle = "";
 
-          if (likeCount >= 50) {
-            markerClass = "marker-pin-gold"; // Level 3 (Gold)
-            lineColor = "#eab308";
-            rankTitle =
-              "<span style='color:#eab308; font-size:10px; border:1px solid #eab308; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ LENDA ]</span>";
-          } else if (likeCount >= 10) {
-            markerClass = "marker-pin-purple"; // Level 2 (Purple)
-            lineColor = "#a855f7";
-            rankTitle =
-              "<span style='color:#a855f7; font-size:10px; border:1px solid #a855f7; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ VETERANO ]</span>";
-          }
-          // ----------------------------------
+            if (likeCount >= 50) {
+              markerClass = "marker-pin-gold"; // Level 3 (Gold)
+              lineColor = "#eab308";
+              rankTitle =
+                "<span style='color:#eab308; font-size:10px; border:1px solid #eab308; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ LENDA ]</span>";
+            } else if (likeCount >= 10) {
+              markerClass = "marker-pin-purple"; // Level 2 (Purple)
+              lineColor = "#a855f7";
+              rankTitle =
+                "<span style='color:#a855f7; font-size:10px; border:1px solid #a855f7; padding:1px 3px; border-radius:3px; margin-left:5px;'>[ VETERANO ]</span>";
+            }
+            // ----------------------------------
 
-          if (specialTitle === "HACKER") {
-            rankTitle =
-              "<span style='color:#10b981; font-size:10px; border:1px solid #10b981; padding:1px 3px; border-radius:3px; margin-left:5px; background:#000;'>[ HACKER ]</span>";
-            lineColor = "#10b981";
-          }
+            if (specialTitle === "HACKER") {
+              rankTitle =
+                "<span style='color:#10b981; font-size:10px; border:1px solid #10b981; padding:1px 3px; border-radius:3px; margin-left:5px; background:#000;'>[ HACKER ]</span>";
+              lineColor = "#10b981";
+            }
 
-          // --- NEURAL NETWORK LINES (Conecta aos 3 pontos mais próximos) ---
-          const neighbors = markersData
-            .map((pt) => ({ pt, dist: currentLatLng.distanceTo(pt) }))
-            .sort((a, b) => a.dist - b.dist)
-            .slice(0, 3);
+            // --- NEURAL NETWORK LINES (Conecta aos 3 pontos mais próximos) ---
+            const neighbors = markersData
+              .map((pt) => ({ pt, dist: currentLatLng.distanceTo(pt) }))
+              .sort((a, b) => a.dist - b.dist)
+              .slice(0, 3);
 
-          neighbors.forEach((n) => {
-            const line = L.polyline([currentLatLng, n.pt], {
-              color: lineColor, // Match marker color
-              weight: 1.5,
-              opacity: 0.6,
-              className: "neural-line", // Classe para animação CSS
-              interactive: false,
+            neighbors.forEach((n) => {
+              const line = L.polyline([currentLatLng, n.pt], {
+                color: lineColor, // Match marker color
+                weight: 1.5,
+                opacity: 0.6,
+                className: "neural-line", // Classe para animação CSS
+                interactive: false,
+              }).addTo(map);
+            });
+            // currentLines.push(line); // (Opcional: guardar ref se precisar limpar individualmente)
+
+            markersData.push(currentLatLng);
+            // -------------------------------------------------------------
+
+            // Marcador Customizado (Ponto de Luz)
+            const techIcon = L.divIcon({
+              className: "custom-div-icon",
+              html: `<div class='${markerClass}'></div>`,
+              iconSize: [12, 12],
+              iconAnchor: [6, 6],
+            });
+
+            const marker = L.marker(currentLatLng, {
+              icon: techIcon,
             }).addTo(map);
-          });
-          // currentLines.push(line); // (Opcional: guardar ref se precisar limpar individualmente)
 
-          markersData.push(currentLatLng);
-          // -------------------------------------------------------------
+            markersMap[change.doc.id] = marker;
 
-          // Marcador Customizado (Ponto de Luz)
-          const techIcon = L.divIcon({
-            className: "custom-div-icon",
-            html: `<div class='${markerClass}'></div>`,
-            iconSize: [12, 12],
-            iconAnchor: [6, 6],
-          });
+            // Add to Search Index
+            searchIndex.push({
+              id: change.doc.id,
+              name: data.name,
+              text: data.text,
+              lat: data.lat,
+              lng: data.lng,
+              timestamp: data.timestamp,
+              likes: likeCount,
+            });
 
-          const marker = L.marker(currentLatLng, {
-            icon: techIcon,
-          }).addTo(map);
+            const safeName = data.name.replace(/</g, "&lt;");
+            const safeText = data.text.replace(/</g, "&lt;");
 
-          markersMap[change.doc.id] = marker;
-
-          // Add to Search Index
-          searchIndex.push({
-            id: change.doc.id,
-            name: data.name,
-            text: data.text,
-            lat: data.lat,
-            lng: data.lng,
-            timestamp: data.timestamp,
-            likes: likeCount,
-          });
-
-          const safeName = data.name.replace(/</g, "&lt;");
-          const safeText = data.text.replace(/</g, "&lt;");
-
-          const safeNameEscaped = safeName
-            .replace(/\\/g, "\\\\")
-            .replace(/'/g, "\\'")
-            .replace(/\n/g, "\\n")
-            .replace(/"/g, "&quot;");
-          const safeTextEscaped = safeText
-            .replace(/\\/g, "\\\\")
-            .replace(/'/g, "\\'")
-            .replace(/\n/g, "\\n")
-            .replace(/"/g, "&quot;");
-
-          // Determine colors based on user action (requires currentUser, handled in click but visual here is generic or needs update on auth)
-          // For simplicity in popup string, we use generic colors, but could be dynamic if we rebuild popup on auth change.
-          const likeColor =
-            currentUser && likedBy.includes(currentUser.uid)
-              ? "#22c55e"
-              : "#64748b";
-          const dislikeColor =
-            currentUser && dislikedBy.includes(currentUser.uid)
-              ? "#ef4444"
-              : "#64748b";
-
-          const authorName = data.name || "Anonymous";
-          const authorUid = data.uid || null;
-          let nameHtml = `<strong style="color: ${lineColor}; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">${authorName.replace(
-            /</g,
-            "&lt;",
-          )}</strong>`;
-          if (authorUid && currentUser && authorUid !== currentUser.uid) {
-            const safeAuthorName = authorName
+            const safeNameEscaped = safeName
+              .replace(/\\/g, "\\\\")
               .replace(/'/g, "\\'")
+              .replace(/\n/g, "\\n")
               .replace(/"/g, "&quot;");
-            nameHtml = `<button onclick="window.openPublicProfile('${authorUid}', '${safeAuthorName}')" style="background:none; border:none; padding:0; text-align:left; cursor:pointer;" class="hover:underline">${nameHtml}</button>`;
-          }
+            const safeTextEscaped = safeText
+              .replace(/\\/g, "\\\\")
+              .replace(/'/g, "\\'")
+              .replace(/\n/g, "\\n")
+              .replace(/"/g, "&quot;");
 
-          const replyCount = data.replyCount || 0;
+            // Determine colors based on user action (requires currentUser, handled in click but visual here is generic or needs update on auth)
+            // For simplicity in popup string, we use generic colors, but could be dynamic if we rebuild popup on auth change.
+            const likeColor =
+              currentUser && likedBy.includes(currentUser.uid)
+                ? "#22c55e"
+                : "#64748b";
+            const dislikeColor =
+              currentUser && dislikedBy.includes(currentUser.uid)
+                ? "#ef4444"
+                : "#64748b";
 
-          marker.bindPopup(`
+            const authorName = data.name || "Anonymous";
+            const authorUid = data.uid || null;
+            let nameHtml = `<strong style="color: ${lineColor}; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">${authorName.replace(
+              /</g,
+              "&lt;",
+            )}</strong>`;
+            if (authorUid && currentUser && authorUid !== currentUser.uid) {
+              const safeAuthorName = authorName
+                .replace(/'/g, "\\'")
+                .replace(/"/g, "&quot;");
+              nameHtml = `<button onclick="window.openPublicProfile('${authorUid}', '${safeAuthorName}')" style="background:none; border:none; padding:0; text-align:left; cursor:pointer;" class="hover:underline">${nameHtml}</button>`;
+            }
+
+            const replyCount = data.replyCount || 0;
+
+            marker.bindPopup(`
                       <div style="font-family: 'Rajdhani', sans-serif; min-width: 200px;">
                           ${nameHtml}${rankTitle}
                           <p style="margin: 6px 0; font-size: 14px; color: #e0f2fe;">"${safeText}"</p>
@@ -244,72 +246,79 @@ function loadMessages(sortBy = "timestamp") {
                           </div>
                       </div>
                   `);
-        }
-      } else if (change.type === "modified") {
-        // Atualiza o contador em tempo real se alguém curtir
-        const data = change.doc.data();
-        const marker = markersMap[change.doc.id];
-        if (marker) {
-          const likedBy = data.likedBy || [];
-          const dislikedBy = data.dislikedBy || [];
-          const likeCount = likedBy.length;
-          const dislikeCount = dislikedBy.length;
-
-          // Atualiza o número no DOM se o popup estiver aberto
-          const likeSpan = document.getElementById(`likes-${change.doc.id}`);
-          if (likeSpan) likeSpan.innerText = likeCount;
-          const dislikeSpan = document.getElementById(
-            `dislikes-${change.doc.id}`,
-          );
-          if (dislikeSpan) dislikeSpan.innerText = dislikeCount;
-
-          // Atualiza o conteúdo interno do popup para a próxima vez que abrir
-          const popup = marker.getPopup();
-          if (popup) {
-            const likeColor =
-              currentUser && likedBy.includes(currentUser.uid)
-                ? "#22c55e"
-                : "#64748b";
-            const dislikeColor =
-              currentUser && dislikedBy.includes(currentUser.uid)
-                ? "#ef4444"
-                : "#64748b";
-
-            const buttonsRegex =
-              /<button onclick="handleReaction\('[^']+', 'like'\)".*?<\/button>\s*<button onclick="handleReaction\('[^']+', 'dislike'\)".*?<\/button>/s;
-            const newButtonsHTML = `<button onclick="handleReaction('${change.doc.id}', 'like')" style="background: none; border: none; cursor: pointer; color: ${likeColor}; font-size: 14px; padding: 0 2px;">👍 <span id="likes-${change.doc.id}">${likeCount}</span></button>\n<button onclick="handleReaction('${change.doc.id}', 'dislike')" style="background: none; border: none; cursor: pointer; color: ${dislikeColor}; font-size: 14px; padding: 0 2px;">👎 <span id="dislikes-${change.doc.id}">${dislikeCount}</span></button>`;
-
-            let currentContent = popup.getContent();
-            if (currentContent.match(buttonsRegex)) {
-              const newContent = currentContent.replace(
-                buttonsRegex,
-                newButtonsHTML,
-              );
-              marker.setPopupContent(newContent);
-            }
           }
+        } else if (change.type === "modified") {
+          // Atualiza o contador em tempo real se alguém curtir
+          const data = change.doc.data();
+          const marker = markersMap[change.doc.id];
+          if (marker) {
+            const likedBy = data.likedBy || [];
+            const dislikedBy = data.dislikedBy || [];
+            const likeCount = likedBy.length;
+            const dislikeCount = dislikedBy.length;
 
-          // Atualiza contagem de respostas se houver
-          const replyCount = data.replyCount || 0;
-          // (Simplificação: o botão de reply já tem o onclick, apenas o texto mudaria, mas para Spark plan não vamos ouvir replies em tempo real no mapa global para economizar, apenas likes)
-        }
-      } else if (change.type === "removed") {
-        // --- FIX: REAL-TIME REMOVAL ---
-        const marker = markersMap[change.doc.id];
-        if (marker) {
-          map.removeLayer(marker);
-          delete markersMap[change.doc.id];
+            // Atualiza o número no DOM se o popup estiver aberto
+            const likeSpan = document.getElementById(`likes-${change.doc.id}`);
+            if (likeSpan) likeSpan.innerText = likeCount;
+            const dislikeSpan = document.getElementById(
+              `dislikes-${change.doc.id}`,
+            );
+            if (dislikeSpan) dislikeSpan.innerText = dislikeCount;
 
-          // Remove do índice de busca também
-          const idx = searchIndex.findIndex(
-            (item) => item.id === change.doc.id,
-          );
-          if (idx > -1) searchIndex.splice(idx, 1);
+            // Atualiza o conteúdo interno do popup para a próxima vez que abrir
+            const popup = marker.getPopup();
+            if (popup) {
+              const likeColor =
+                currentUser && likedBy.includes(currentUser.uid)
+                  ? "#22c55e"
+                  : "#64748b";
+              const dislikeColor =
+                currentUser && dislikedBy.includes(currentUser.uid)
+                  ? "#ef4444"
+                  : "#64748b";
+
+              const buttonsRegex =
+                /<button onclick="handleReaction\('[^']+', 'like'\)".*?<\/button>\s*<button onclick="handleReaction\('[^']+', 'dislike'\)".*?<\/button>/s;
+              const newButtonsHTML = `<button onclick="handleReaction('${change.doc.id}', 'like')" style="background: none; border: none; cursor: pointer; color: ${likeColor}; font-size: 14px; padding: 0 2px;">👍 <span id="likes-${change.doc.id}">${likeCount}</span></button>\n<button onclick="handleReaction('${change.doc.id}', 'dislike')" style="background: none; border: none; cursor: pointer; color: ${dislikeColor}; font-size: 14px; padding: 0 2px;">👎 <span id="dislikes-${change.doc.id}">${dislikeCount}</span></button>`;
+
+              let currentContent = popup.getContent();
+              if (currentContent.match(buttonsRegex)) {
+                const newContent = currentContent.replace(
+                  buttonsRegex,
+                  newButtonsHTML,
+                );
+                marker.setPopupContent(newContent);
+              }
+            }
+
+            // Atualiza contagem de respostas se houver
+            const replyCount = data.replyCount || 0;
+            // (Simplificação: o botão de reply já tem o onclick, apenas o texto mudaria, mas para Spark plan não vamos ouvir replies em tempo real no mapa global para economizar, apenas likes)
+          }
+        } else if (change.type === "removed") {
+          // --- FIX: REAL-TIME REMOVAL ---
+          const marker = markersMap[change.doc.id];
+          if (marker) {
+            map.removeLayer(marker);
+            delete markersMap[change.doc.id];
+
+            // Remove do índice de busca também
+            const idx = searchIndex.findIndex(
+              (item) => item.id === change.doc.id,
+            );
+            if (idx > -1) searchIndex.splice(idx, 1);
+          }
+          // ------------------------------
         }
-        // ------------------------------
+      });
+    },
+    (error) => {
+      console.error("Error loading messages:", error);
+      if (error.code === "permission-denied") {
+        showToast("Acesso negado: Verifique regras do Firestore.", "error");
       }
-    });
-  });
+    },
+  );
 }
 
 // Inicializa com Latest
@@ -572,7 +581,7 @@ onAuthStateChanged(auth, (user) => {
         email: user.email,
       },
       { merge: true },
-    );
+    ).catch((e) => console.error("Error updating profile:", e));
 
     // Listen for user stats (followers, etc.)
     onSnapshot(userRef, (docSnap) => {
@@ -1727,21 +1736,28 @@ window.openClanChat = () => {
 
   if (clanChatUnsubscribe) clanChatUnsubscribe();
 
-  clanChatUnsubscribe = onSnapshot(q, (snapshot) => {
-    const container = document.getElementById("clan-chat-messages");
-    container.innerHTML = "";
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      if (data.tag === tag) {
-        const div = document.createElement("div");
-        div.innerHTML = `<span class="text-green-600">[${
-          data.sender.split("]")[1] || data.sender
-        }]</span>: <span class="text-green-300">${data.text}</span>`;
-        container.appendChild(div);
-      }
-    });
-    container.scrollTop = container.scrollHeight;
-  });
+  clanChatUnsubscribe = onSnapshot(
+    q,
+    (snapshot) => {
+      const container = document.getElementById("clan-chat-messages");
+      container.innerHTML = "";
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.tag === tag) {
+          const div = document.createElement("div");
+          div.innerHTML = `<span class="text-green-600">[${
+            data.sender.split("]")[1] || data.sender
+          }]</span>: <span class="text-green-300">${data.text}</span>`;
+          container.appendChild(div);
+        }
+      });
+      container.scrollTop = container.scrollHeight;
+    },
+    (error) => {
+      console.error("Clan chat error:", error);
+      showToast("Erro de conexão com o chat.", "error");
+    },
+  );
 };
 
 window.closeClanChat = () => {
@@ -1797,33 +1813,40 @@ function initFeedNotifications() {
     limit(20),
   );
 
-  onSnapshot(q, (snapshot) => {
-    const lastView = parseInt(localStorage.getItem("wmt_last_feed_view")) || 0;
-    const isFeedOpen = document
-      .getElementById("feed-panel")
-      .classList.contains("open");
+  onSnapshot(
+    q,
+    (snapshot) => {
+      const lastView =
+        parseInt(localStorage.getItem("wmt_last_feed_view")) || 0;
+      const isFeedOpen = document
+        .getElementById("feed-panel")
+        .classList.contains("open");
 
-    if (isFeedOpen) return;
+      if (isFeedOpen) return;
 
-    let unreadCount = 0;
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      if (data.timestamp && data.timestamp.seconds > lastView) {
-        unreadCount++;
+      let unreadCount = 0;
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.timestamp && data.timestamp.seconds > lastView) {
+          unreadCount++;
+        }
+      });
+
+      const indicator = document.getElementById("feed-indicator");
+      if (indicator) {
+        if (unreadCount > 0) {
+          indicator.innerText = unreadCount > 19 ? "19+" : unreadCount;
+          indicator.classList.remove("hidden");
+          indicator.classList.add("animate-pulse");
+        } else {
+          indicator.classList.add("hidden");
+        }
       }
-    });
-
-    const indicator = document.getElementById("feed-indicator");
-    if (indicator) {
-      if (unreadCount > 0) {
-        indicator.innerText = unreadCount > 19 ? "19+" : unreadCount;
-        indicator.classList.remove("hidden");
-        indicator.classList.add("animate-pulse");
-      } else {
-        indicator.classList.add("hidden");
-      }
-    }
-  });
+    },
+    (error) => {
+      console.warn("Feed notification error:", error);
+    },
+  );
 }
 
 initFeedNotifications();
